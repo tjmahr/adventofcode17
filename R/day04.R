@@ -47,11 +47,7 @@
 #' @rdname day04
 #' @export
 count_valid_passphrases <- function(x, rule = no_repeated_words) {
-  lines <- x %>%
-    strsplit("\\n") %>%
-    unlist() %>%
-    stringr::str_trim() %>%
-    Filter(function(x) x != "", .)
+  lines <- read_text_lines(x)
   sum(rule(lines))
 }
 
