@@ -28,8 +28,8 @@ For example:
 second digit and the third digit (2) matches the fourth digit.
 \item 1111 produces 4 because each digit (all 1) matches the next.
 \item 1234 produces 0 because no digit matches the next.
-\item 91212129 produces 9 because the only digit that matches the next one is the
-last digit, 9.
+\item 91212129 produces 9 because the only digit that matches the next one is
+the last digit, 9.
 }
 
 \strong{Part Two}
