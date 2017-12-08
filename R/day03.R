@@ -1,5 +1,4 @@
-
-#' Day 2: Spiral Memory
+#' Day 3: Spiral Memory
 #'
 #' Spiral Memory
 #'
@@ -43,7 +42,37 @@
 #'
 #' **Part Two**
 #'
-#' ...
+#' As a stress test on the system, the programs here clear the grid and then
+#' store the value 1 in square 1. Then, in the same allocation order as shown
+#' above, they store the sum of the values in all adjacent squares, including
+#' diagonals.
+#'
+#' So, the first few squares' values are chosen as follows:
+#'
+#'   - Square 1 starts with the value 1.
+#'   - Square 2 has only one adjacent filled square (with value 1), so it also
+#'     stores 1.
+#'   - Square 3 has both of the above squares as neighbors and stores the sum
+#'     of their values, 2.
+#'   - Square 4 has all three of the aforementioned squares as neighbors and
+#'     stores the sum of their values, 4.
+#'   - Square 5 only has the first and fourth squares as neighbors, so it gets
+#'     the value 5.
+#'
+#' Once a square is written, its value does not change. Therefore, the first few
+#' squares would receive the following values:
+#'
+#' ```
+#' 147  142  133  122   59
+#' 304    5    4    2   57
+#' 330   10    1    1   54
+#' 351   11   23   25   26
+#' 362  747  806--->   ...
+#' ```
+#'
+#' What is the first value written that is larger than your puzzle input?
+#'
+#' Your puzzle input is still 289326.
 #'
 #' @rdname day03
 #' @export
@@ -52,14 +81,16 @@ spiral_distance <- function(x) {
   abs(coords$x) + abs(coords$y)
 }
 
-#' @rdname day03
-#' @export
-stub_part_two <- function() {
-  # to write after I solve part 1
-}
-
 # Find taxicab coordinate of numbers in a spiral
 find_coordinate_of_number <- function(x) {
+  # I wanted to avoid creating the whole spiral up to the input value. My
+  # strategy was to use the fact that the spiral is made of rings: ring 0 has 1,
+  # ring 1 has 2:9, ring 2 has 10:25, etc. The bottom edge of the ring has an
+  # odd number of elements. Ring 0 has 1 item, ring 1 has 3 items, ring 3 has 5
+  # items. The largest number in each ring is equal to the width squared. I use
+  # these facts to determine which ring contains a number. Then once I know
+  # which ring has an item, I make a table with the coordinates of every number
+  # in that ring by following the spiral backwards from the largest number.
   ring_df <- x %>%
     find_ring_of_number() %>%
     enumerate_ring_items()
@@ -70,7 +101,10 @@ find_coordinate_of_number <- function(x) {
 # Find which ring of the spiral contains a number
 find_ring_of_number <- function(x) {
   if (x == 1) return(0)
+  # Create a sequence of odd numbers for the width of the bottom edge
   odds <- seq(1, ceiling(sqrt(x)) + 2, by = 2)
+  # Biggest item in each ring is width squared. The smallest item in each next
+  # ring is the biggest item + 1. Start of ring 3 = (max of ring 2) + 1
   ring_starts <- (odds ^ 2) + 1
   max(which((ring_starts) <= x))
 }
@@ -120,4 +154,101 @@ enumerate_ring_items <- function(ring_num) {
 discrete_perimeter <- function(x) {
   ifelse(x == 1, 1, (4 * x) - 4)
 }
+
+
+#' @rdname day03
+#' @export
+find_first_spiral_step_bigger_than_target <- function(target) {
+  # Okay, I really do have to make the spiral now.
+  move_df <- create_move_df()
+
+  # Get values along the next 90-degree bend until we find a number larger than
+  # target
+  while(max(move_df$value) < target) {
+    move_df <- move_df %>%
+      follow_next_bend() %>%
+      update_move_df_values()
+  }
+  values_larger_than_target <- move_df$value[target <= move_df$value]
+  min(values_larger_than_target)
+}
+
+# To walk around the spiral, we make a series a longer 90-degree turns
+#
+# bend 1: > ^
+# bend 2: << vv
+# bend 3: >>> ^^^
+# bend 4: <<<< vvvv
+# bend 5: >>>>> ^^^^^
+# etc.
+#
+# So we can use these to generate a series of x,y changes.
+
+determine_bend_steps <- function(bend_num) {
+  is_rightward <- (bend_num %% 2) == 1
+  x_move <- if (is_rightward) 1 else -1
+  y_move <- if (is_rightward) 1 else -1
+
+  data.frame(
+    bend = bend_num,
+    x_diff = c(rep(x_move, bend_num), rep(0, bend_num)),
+    y_diff = c(rep(0, bend_num), rep(y_move, bend_num)))
+
+}
+
+create_move_df <- function() {
+  data.frame(value = 1, move = 0, bend = 0, x = 0, y = 0)
+}
+
+# Add x-y values of next bend
+follow_next_bend <- function(move_df) {
+  last_row <- move_df[nrow(move_df), ]
+
+  next_steps <- determine_bend_steps(last_row$bend + 1)
+  new_move <- last_row$move + seq_len(nrow(next_steps))
+  new_bend <- last_row$bend + 1
+  new_x <- cumsum(c(last_row$x, next_steps$x_diff))[-1]
+  new_y <- cumsum(c(last_row$y, next_steps$y_diff))[-1]
+
+  moves <- data.frame(
+    value = 0,
+    move = new_move,
+    bend = new_bend,
+    x = new_x,
+    y = new_y)
+
+  rbind(move_df, moves)
+}
+
+# Replace any 0's with sum of neighbors
+update_move_df_values <- function(move_df) {
+  while (any_move_df_rows_to_update(move_df)) {
+    move_df <- update_next_move_df_row(move_df)
+  }
+  move_df
+}
+
+# Are there any zeroes?
+any_move_df_rows_to_update <- function(move_df) {
+  any(move_df$value == 0)
+}
+
+# Update first 0 value with sum of neighbors
+update_next_move_df_row <- function(move_df) {
+  curr_row <- find_next_move_df_row_to_update(move_df)
+  x <- curr_row$x
+  y <- curr_row$y
+  # Find neighboring units but exclude self
+  neighbors <- move_df[(move_df$x %in% c(x + -1:1)) &
+                         (move_df$y %in% c(y + -1:1)), ]
+  neighbors <- neighbors[neighbors$move != curr_row$move, ]
+  move_df[move_df$move == curr_row$move, "value"] <- sum(neighbors$value)
+  move_df
+}
+
+find_next_move_df_row_to_update <- function(move_df) {
+  next_to_update <- min(which(move_df$value == 0))
+  move_df[next_to_update, ]
+}
+
 
