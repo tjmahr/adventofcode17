@@ -88,7 +88,6 @@ run_many_instructions <- function(lines) {
     max_ever = max_ever,
     register = register
   )
-
 }
 
 # Analyze a register instruction
@@ -126,10 +125,4 @@ eval_instruction <- function(register, target, code) {
   result <- rlang::eval_tidy(code, data = register)
   register[[target]] <- result
   register
-}
-
-#' @rdname day08
-#' @export
-dayxx_b_stub <- function(x) {
-
 }

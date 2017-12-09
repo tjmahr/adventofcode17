@@ -2,12 +2,9 @@
 % Please edit documentation in R/day08.R
 \name{run_many_instructions}
 \alias{run_many_instructions}
-\alias{dayxx_b_stub}
 \title{Day 8: I Heard You Like Registers}
 \usage{
 run_many_instructions(lines)
-
-dayxx_b_stub(x)
 }
 \description{
 I Heard You Like Registers

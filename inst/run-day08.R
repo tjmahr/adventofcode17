@@ -1000,4 +1000,6 @@ ucy dec 0 if bxy < 1582
 kd inc 814 if zv <= -591"
 
 library(adventofcode17)
-str(run_many_instructions(day08_test))
+results <- run_many_instructions(day08_test)
+stopifnot(results$max_final == 4832)
+stopifnot(results$max_ever == 5443)
