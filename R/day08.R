@@ -45,6 +45,11 @@
 #'
 #' **Part Two**
 #'
+#' To be safe, the CPU also needs to know the highest value held in any register
+#' during this process so that it can decide how much memory to allocate to
+#' these operations. For example, in the above instructions, the highest value
+#' ever held was 10 (in register c after the third instruction was evaluated).
+#'
 #' @rdname day08
 #' @export
 run_many_instructions <- function(lines) {
@@ -66,12 +71,21 @@ run_many_instructions <- function(lines) {
 
   lines <- read_text_lines(lines)
 
+  # Part B wants to know what the highest value of any register ever was
+  max_ever <- NA
+
   for (instruction in lines) {
     register <- run_instruction(register, instruction)
+    max_current <- max(unlist(register))
+
+    if (is.na(max_current > max_ever) || max_current > max_ever) {
+      max_ever <- max_current
+    }
   }
 
   list(
-    maximum = max(unlist(register)),
+    max_final = max_current,
+    max_ever = max_ever,
     register = register
   )
 

@@ -9,6 +9,11 @@ test_that("register instructions", {
   "
   lines %>%
     run_many_instructions() %>%
-    getElement("maximum") %>%
+    getElement("max_final") %>%
     expect_equal(1)
+
+  lines %>%
+    run_many_instructions() %>%
+    getElement("max_ever") %>%
+    expect_equal(10)
 })
