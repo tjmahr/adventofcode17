@@ -180,15 +180,18 @@ twist_a_knot <- function(items, lengths, current_position, step, ...) {
     xs
   }
 
+  # Wrap position indices larger than a vector's length around the vector
+  #
+  # wrap_around(c(2, 3, 4, 5), length = 3) => 2 3 1 2
   wrap_around <- function(xs, length) {
     ((xs - 1) %% length) + 1
 
     # I originally had the code below. It works for Part A and the empty string
-    # for Part B but failed everywhere else. It was kind of maddening. It failed
-    # when the changes got too big because 512 would map to position 0 instead
-    # of position 1. The solution I used above basically converts R from 1-based
-    # positions to 0-based positions, wraps around, and converts back to 1-based
-    # positions.
+    # test case for Part B but failed everywhere else. It was kind of maddening.
+    # It failed when the offsets got too big because `2 * length` would map to
+    # position 0 instead of position 1. The solution I used above basically
+    # converts from R's 1-based positions to 0-based positions, wraps around,
+    # and converts back to 1-based positions.
 
     # bad_code_dont_use <- ifelse(length < xs, (xs %% length), xs)
   }
