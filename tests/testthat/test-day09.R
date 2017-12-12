@@ -1,0 +1,20 @@
+context("test-day09.R")
+
+test_that("stream processing", {
+  "{}" %>% process_stream() %>% expect_equal(1)
+  "{{{}}}" %>% process_stream() %>% expect_equal(6)
+  "{{},{}}" %>% process_stream() %>% expect_equal(5)
+  "{{{},{},{{}}}}" %>% process_stream() %>% expect_equal(16)
+  "{<a>,<a>,<a>,<a>}" %>% process_stream() %>% expect_equal(1)
+  "{{<ab>},{<ab>},{<ab>},{<ab>}}" %>% process_stream() %>% expect_equal(9)
+  "{{<!!>},{<!!>},{<!!>},{<!!>}}" %>% process_stream() %>% expect_equal(9)
+  "{{<a!>},{<a!>},{<a!>},{<ab>}}" %>% process_stream() %>% expect_equal(3)
+
+  "<>" %>% count_garbage() %>% expect_equal(0)
+  "<!!>" %>% count_garbage() %>% expect_equal(0)
+  "<<<<>" %>% count_garbage() %>% expect_equal(3)
+  "<{!>}>" %>% count_garbage() %>% expect_equal(2)
+  "<!!!>>" %>% count_garbage() %>% expect_equal(0)
+  "<{o\"i!a,<{i<a>" %>% count_garbage() %>% expect_equal(10)
+  "<random characters>" %>% count_garbage() %>% expect_equal(17)
+})
