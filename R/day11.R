@@ -1,11 +1,8 @@
 #' Day 11: Hex Ed
 #'
-#' Hex Ed
+#' [Hex Ed](http://adventofcode.com/2017/day/11)
 #'
 #' @details
-#'
-#' To quote the [website](http://adventofcode.com/2017/day/11)
-#'
 #'
 #' **Part One**
 #'

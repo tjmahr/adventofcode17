@@ -1,10 +1,8 @@
 #' Day 10: Knot Hash
 #'
-#' Knot Hash
+#' [Knot Hash](http://adventofcode.com/2017/day/10)
 #'
 #' @details
-#'
-#' To quote the [website](http://adventofcode.com/2017/day/10)
 #'
 #' **Part One**
 #'

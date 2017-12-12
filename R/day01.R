@@ -1,10 +1,8 @@
 #' Day 1: Inverse Captcha
 #'
-#' Inverse Captcha.
+#' [Inverse Captcha](http://adventofcode.com/2017/day/1)
 #'
 #' @details
-#'
-#' To quote the [website](http://adventofcode.com/2017/day/1)
 #'
 #' **Part One**
 #'

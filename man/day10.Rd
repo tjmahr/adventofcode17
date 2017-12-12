@@ -10,11 +10,9 @@ twist_knot(args)
 knot_hash(seed)
 }
 \description{
-Knot Hash
+\href{http://adventofcode.com/2017/day/10}{Knot Hash}
 }
 \details{
-To quote the \href{http://adventofcode.com/2017/day/10}{website}
-
 \strong{Part One}
 
 You come across some programs that are trying to implement a software

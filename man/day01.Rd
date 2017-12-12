@@ -10,11 +10,9 @@ sum_of_digits_matching_next(x)
 sum_of_digits_matching_halfway_around(x)
 }
 \description{
-Inverse Captcha.
+\href{http://adventofcode.com/2017/day/1}{Inverse Captcha}
 }
 \details{
-To quote the \href{http://adventofcode.com/2017/day/1}{website}
-
 \strong{Part One}
 
 The night before Christmas, one of Santa's Elves calls you in a panic.

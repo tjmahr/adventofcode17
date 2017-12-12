@@ -10,11 +10,9 @@ hexagon_distance(steps)
 find_longest_hexagon_distance(steps)
 }
 \description{
-Hex Ed
+\href{http://adventofcode.com/2017/day/11}{Hex Ed}
 }
 \details{
-To quote the \href{http://adventofcode.com/2017/day/11}{website}
-
 \strong{Part One}
 
 Crossing the bridge, you've barely reached the other side of the stream
