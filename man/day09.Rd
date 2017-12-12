@@ -10,5 +10,5 @@ process_stream(stream)
 count_garbage(stream)
 }
 \description{
-Stream Processing
+\href{http://adventofcode.com/2017/day/9}{Stream Processing}
 }

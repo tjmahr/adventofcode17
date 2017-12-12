@@ -1,10 +1,8 @@
 #' Day 9: Stream Processing
 #'
-#' Stream Processing
+#' [Stream Processing](http://adventofcode.com/2017/day/9)
 #'
 #' @details
-#'
-#' To quote the [website](http://adventofcode.com/2017/day/9)
 #'
 #' **Part One**
 #'
