@@ -5,3 +5,10 @@ read_text_lines <- function(x) {
     stringr::str_trim() %>%
     Filter(function(x) x != "", .)
 }
+
+wrap_around <- function(xs, length) {
+  ((xs - 1) %% length) + 1
+}
+
+#' @export
+`%nin%` <- Negate(`%in%`)
