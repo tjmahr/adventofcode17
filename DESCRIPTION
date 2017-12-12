@@ -3,14 +3,15 @@ Version: 0.0.0.9000
 Title: What the Package Does (one line, title case)
 Description: What the package does (one paragraph).
 Authors@R: person("First", "Last", , "first.last@example.com", c("aut", "cre"))
-License: What license it uses
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 ByteCompile: true
-Suggests: 
+Suggests:
     testthat
 RoxygenNote: 6.0.1.9000
 Roxygen: list(markdown = TRUE)
-Imports: 
+Imports:
     magrittr,
-    rlang (>= 0.1.2)
+    rlang (>= 0.1.2),
+    stringr
