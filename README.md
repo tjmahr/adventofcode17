@@ -17,3 +17,7 @@ as much of the heavy lifting as possible. So far I have allowed myself to use:
 * magrittr: for the pipe `%>%` syntax
 * rlang: for language and code evaluation
 * stringr: for regular-expression-related functions
+
+I've put my R source code under a GPL-3 license. It should not apply to the
+puzzle descriptions in the code comments at the top of each file. I did not
+write those descriptions, obviously.
