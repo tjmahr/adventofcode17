@@ -1,7 +1,7 @@
 context("test-day07.R")
 
-test_that("find the root program", {
-  "pbga (66)
+test_that("analyzing a program tree", {
+  lines <- "pbga (66)
   xhth (57)
   ebii (61)
   havc (66)
@@ -14,9 +14,14 @@ test_that("find the root program", {
   ugml (68) -> gyxo, ebii, jptl
   gyxo (61)
   cntj (57)" %>%
-    read_text_lines() %>%
+    read_text_lines()
+
+  lines %>%
     find_root_program() %>%
     getElement("name") %>%
     expect_equal("tknk")
 
+  lines %>%
+    find_program_imbalance() %>%
+    expect_equal(60)
 })
