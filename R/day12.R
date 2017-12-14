@@ -147,23 +147,3 @@ create_graph <- function(pipes) {
     count_groups = count_groups
   )
 }
-
-#' @rdname day12
-#' @export
-dayxx_b_stub <- function(x) {
-
-}
-
-
-
-
-# visit_node <- function(node) {
-#   node_list[[node]]["visited"] <<- TRUE
-#   invisible(NULL)
-# }
-#
-# visit_nodes <- function(nodes) {
-#   for (node in nodes) visit_node(node)
-#   invisible(NULL)
-# }
-

@@ -12,3 +12,8 @@ wrap_around <- function(xs, length) {
 
 #' @export
 `%nin%` <- Negate(`%in%`)
+
+#' @export
+keep_if <- function(data, predicate) {
+  Filter(predicate, data)
+}

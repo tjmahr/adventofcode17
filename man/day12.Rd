@@ -3,14 +3,11 @@
 \name{search_pipes_from_zero}
 \alias{search_pipes_from_zero}
 \alias{count_pipe_groups}
-\alias{dayxx_b_stub}
 \title{Day 12: Digital Plumber}
 \usage{
 search_pipes_from_zero(pipes)
 
 count_pipe_groups(pipes)
-
-dayxx_b_stub(x)
 }
 \description{
 \href{http://adventofcode.com/2017/day/12}{Digital Plumber}
