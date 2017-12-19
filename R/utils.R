@@ -10,6 +10,16 @@ wrap_around <- function(xs, length) {
   ((xs - 1) %% length) + 1
 }
 
+wrap_around2 <- function(xs, y) {
+  ((xs - 1) %% length(y)) + 1
+}
+
+insert_value <- function(vector, position, value) {
+  start <- utils::head(vector, position - 1)
+  rest <- utils::tail(vector, -position + 1)
+  c(start, value, rest)
+}
+
 #' @export
 `%nin%` <- Negate(`%in%`)
 
