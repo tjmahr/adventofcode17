@@ -1,17 +1,38 @@
 
 
+#' Day 18: Title
+#'
+#' [Title](http://adventofcode.com/2017/day/18)
+#'
+#' @details
+#'
+#' **Part One**
+#'
+#'
+#'
+#' **Part Two**
+#'
+#'
+#' @rdname day18
 #' @export
 create_solo <- function(commands) {
   # I wanted to write an interpreter that evaluated expressions in an
-  # environment, but I admit that an object-oriented approach would have been a
-  # more familiar way to manage state.
+  # environment. That was fun. But I admit that an object-oriented approach
+  # would have been a more familiar way to manage state, especially for the
+  # second part of the problem where I had to add a lot of methods to
+  # environment.
 
   # We are going to evaluate commands and bind symbols in this environment
   register <- rlang::env()
 
-  # Set some basic object data and methods
+
+  ## Set some basic object data and methods.
+
+  # Need to know last sound to recover it and keep track of recovered sounds.
   register[[".last_sound"]] <- NULL
   register[[".messages"]] <- NULL
+
+  # Need to keep track of machine commands so we can execute them and do jumps.
   register[[".commands"]] <- lapply(commands, parse_command)
   register[[".current_command"]] <- 1
 
@@ -29,7 +50,7 @@ create_solo <- function(commands) {
     rlang::env_bind(register, .current_command = value + n)
   }
 
-  # Set a value but don't consume an instruction
+  # Set a value but don't change the current command
   quiet_set <- function(symbol, value) {
     symbol <- enexpr(symbol)
     rlang::env_bind(register, !! symbol := as.numeric(value))
@@ -45,9 +66,10 @@ create_solo <- function(commands) {
     }
   }
 
+
   ## Machine instructions
 
-  # Set a value
+  # Set a register value
   set <- function(symbol, value) {
     symbol <- enexpr(symbol)
     value <- enexpr(value)
@@ -57,7 +79,7 @@ create_solo <- function(commands) {
     step(1)
   }
 
-  # Helper for creating +, *, %%
+  # Helper for creating +, *, %% commands
   make_arithmetic_function <- function(func) {
     function(symbol, value) {
       symbol <- enexpr(symbol)
@@ -99,7 +121,7 @@ create_solo <- function(commands) {
     step(1)
   }
 
-  # jgz x y jumps (*J*gz) y steps is x is greater than zero (j*GZ*)
+  # `jgz x y`: (J)ump `y` steps if `x` is (G)reater than (Z)ero
   jgz <- function(symbol, offset) {
     symbol <- enexpr(symbol)
     offset <- enexpr(offset)
@@ -119,6 +141,7 @@ create_solo <- function(commands) {
   register
 }
 
+#' @rdname day18
 #' @export
 create_duet <- function(program_id, commands) {
   # The "duet" twist caught me by surprise, so I'm just going to copy/paste the
@@ -129,11 +152,7 @@ create_duet <- function(program_id, commands) {
   # that is turned when the machine hits a rcv() instruction with an empty set
   # of incoming messages.
 
-
-  # We are going to evaluate commands and bind symbols in this environment
   register <- rlang::env()
-
-  # Set some basic object data and methods
   register[[".commands"]] <- lapply(commands, parse_command)
   register[[".current_command"]] <- 1
   register[[".outgoing"]] <- numeric()
@@ -160,40 +179,36 @@ create_duet <- function(program_id, commands) {
     !register[[".is_waiting"]]() && register[[".has_next"]]()
   }
 
+  # .recieve() instructions
   register[[".receive"]] <- function(xs) {
     if (length(xs) != 0) {
-      # register[[".waiting"]] <- FALSE
       register[[".incoming"]] <- c(register[[".incoming"]], xs)
     }
   }
 
-  # post() like a send a letter
+  # .post(), as in to send a letter
   register[[".post"]] <- function() {
     values <- register[[".outgoing"]]
     register[[".outgoing"]] <- numeric()
     values
   }
 
-  # Run the next command
   register[[".eval_next"]] <- function() {
     next_one <- register[[".commands"]][[register[[".current_command"]]]]
     rlang::eval_tidy(next_one)
     invisible(NULL)
   }
 
-  # Advance n steps
   step <- function(n = 1) {
     value <- register[[".current_command"]]
     rlang::env_bind(register, .current_command = value + n)
   }
 
-  # Set a value but don't consume an instruction
   quiet_set <- function(symbol, value) {
     symbol <- enexpr(symbol)
     rlang::env_bind(register, !! symbol := as.numeric(value))
   }
 
-  # Initialize any new symbols to 0
   check_for_new_symbols <- function(symbol) {
     symbol <- enexpr(symbol)
     if (!rlang::is_syntactic_literal(symbol)) {
@@ -203,7 +218,6 @@ create_duet <- function(program_id, commands) {
     }
   }
 
-  # Set a value
   set <- function(symbol, value) {
     symbol <- enexpr(symbol)
     value <- enexpr(value)
@@ -213,7 +227,6 @@ create_duet <- function(program_id, commands) {
     step(1)
   }
 
-  # Helper for creating +, *, %%
   make_arithmetic_function <- function(func) {
     function(symbol, value) {
       symbol <- enexpr(symbol)
@@ -232,7 +245,8 @@ create_duet <- function(program_id, commands) {
   mod <- make_arithmetic_function(`%%`)
   mul <- make_arithmetic_function(`*`)
 
-  # Send a message
+  # Changed from solo version: command now updates the .outgoing queue
+  # and the number of sends.
   snd <- function(symbol) {
     symbol <- enexpr(symbol)
     check_for_new_symbols(!! symbol)
@@ -243,7 +257,7 @@ create_duet <- function(program_id, commands) {
     step(1)
   }
 
-  # Receive a message
+  # Changed from solo version: command now updates the .incoming queue
   rcv <- function(symbol) {
     symbol <- enexpr(symbol)
     check_for_new_symbols(!! symbol)
@@ -257,7 +271,6 @@ create_duet <- function(program_id, commands) {
     }
   }
 
-  # jgz x y jumps (*J*gz) y steps is x is greater than zero (j*GZ*)
   jgz <- function(symbol, offset) {
     symbol <- enexpr(symbol)
     offset <- enexpr(offset)
@@ -274,6 +287,7 @@ create_duet <- function(program_id, commands) {
     }
   }
 
+  # Initialize p to the program id
   quiet_set(p, program_id)
   register
 }
