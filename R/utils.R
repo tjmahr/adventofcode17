@@ -28,6 +28,10 @@ keep_if <- function(data, predicate) {
   Filter(predicate, data)
 }
 
+which_min <- function(xs) {
+  which(xs == min(xs))
+}
+
 #' Convert a vector of integers to a vector of strings of n binary digits
 #'
 #' @param xs a vector of integers
