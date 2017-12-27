@@ -1,6 +1,17 @@
-
-
-
+#' Day 24: Title
+#'
+#' [Title](http://adventofcode.com/2017/day/24)
+#'
+#' @details
+#'
+#' **Part One**
+#'
+#'
+#'
+#' **Part Two**
+#'
+#'
+#' @rdname day24
 #' @export
 find_strongest_bridge <- function(bridges) {
   strongest <- bridges %>%
@@ -11,12 +22,17 @@ find_strongest_bridge <- function(bridges) {
   bridges[strongest]
 }
 
+#' @rdname day24
 #' @export
 find_longest_bridge <- function(bridges) {
-  longest <- unlist(lapply(bridges, compute_bridge_length))
+  longest <- bridges %>%
+    lapply(compute_bridge_length) %>%
+    unlist()
+
   bridges[longest == max(longest)]
 }
 
+#' @rdname day24
 #' @export
 compute_bridge_strength <- function(bridge) {
   bridge %>%
@@ -28,33 +44,24 @@ compute_bridge_strength <- function(bridge) {
     sum()
 }
 
+#' @rdname day24
 #' @export
 compute_bridge_length <- function(bridge) {
-  length(unlist(strsplit(bridge, "--")))
+  bridge %>%
+    strsplit("--") %>%
+    unlist() %>%
+    length()
 }
-
-
-# merge_connector_pairs <- function(bridge) {
-#   Reduce(merge_connector_pair, bridge)
-# }
-#
-#
-# merge_connector_pair <- function(p1, p2) {
-#   d1 <- as_digits(p1)
-#   d2 <- as_digits(p2)
-#
-#   if (d1[2] == d2[1]) {
-#     paste0(p1, "/", d2[2])
-#   } else {
-#     paste0(p1, "/", d2[1])
-#   }
-# }
 
 #' @export
 connect_free_pieces <- function(piece, active_value, pieces) {
+  # When finding matches for x/y, one of the sides (x or y) is "active". We want
+  # to find other pieces with that same value.
   matches <- Filter(function(x) has_digit(x, active_value), pieces)
-  # Recursion! If there are no matches, return the piece. Otherwise, find the
-  # matches for each of the current matches.
+
+  # Recursion! If there are no matches, return the piece. Otherwise, merge the
+  # piece with each of its matches, and repeat this process on each of merged
+  # pieces.
   result <- if (length(matches) == 0) {
     piece
   } else {

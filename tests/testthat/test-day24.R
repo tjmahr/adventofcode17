@@ -15,4 +15,12 @@ test_that("finding bridges", {
     expect_equal("0/1--10/1--9/10") %>%
     compute_bridge_strength() %>%
     expect_equal(31)
+
+  bridges %>%
+    find_longest_bridge() %>%
+    expect_equal(c("0/2--2/2--2/3--3/4", "0/2--2/2--2/3--3/5")) %>%
+    find_strongest_bridge() %>%
+    expect_equal("0/2--2/2--2/3--3/5") %>%
+    compute_bridge_strength() %>%
+    expect_equal(19)
 })
