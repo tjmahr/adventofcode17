@@ -1,6 +1,6 @@
 #' @export
 create_coprocessor <- function(commands) {
-  # I'm copying code from Day 18's machine which uses tidy evaluation to
+  # I'm copying code from Day 18's solution which uses tidy evaluation to
   # evaluate instructions in a custom environment.
 
   # We are going to evaluate commands and bind symbols in this environment
@@ -12,6 +12,8 @@ create_coprocessor <- function(commands) {
   # Need to keep track of machine commands so we can execute them and do jumps.
   register[[".commands"]] <- lapply(commands, parse_command)
   register[[".current_command"]] <- 1
+
+  # The new additions for day 23
   register[[".counts"]] <- c(mul = 0, set = 0, sub = 0, jnz = 0)
 
   register[[".has_next"]] <- function() {
@@ -23,26 +25,28 @@ create_coprocessor <- function(commands) {
     next_one <- register[[".commands"]][[register[[".current_command"]]]]
     command_text <- rlang::expr_text(next_one)
 
+    # Print out debugging messages.
     if (m == 1) {
       message(command_text)
     } else if (m == 2) {
-      info <-
-        sprintf("%s [a: %s, b: %s, c: %s, d: %s, e: %s, f: %s, g: %s, h: %s]",
-                command_text, register$a, register$b, register$c, register$d,
-                register$e, register$f, register$g, register$h)
+      template <- "%s [a: %s, b: %s, c: %s, d: %s, e: %s, f: %s, g: %s, h: %s]"
+      info <- sprintf(template, command_text, register$a, register$b,
+                      register$c, register$d, register$e, register$f,
+                      register$g, register$h)
       message(info)
     }
 
+    # Update the command counts
     verb <- substr(command_text, 1, 3)
     register[[".counts"]][verb] <- register[[".counts"]][verb] + 1
+
     rlang::eval_tidy(next_one)
     invisible(NULL)
   }
 
   # Advance n steps
   step <- function(n = 1) {
-    value <- register[[".current_command"]]
-    rlang::env_bind(register, .current_command = value + n)
+    register[[".current_command"]] <- register[[".current_command"]] + n
   }
 
   # Set a value but don't change the current command

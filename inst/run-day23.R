@@ -7,12 +7,12 @@ while (m$.has_next()) suppressMessages(m$.eval_next())
 stopifnot(m$.counts["mul"] == 3025)
 
 
-
 # I solved it by studying and annotating the code. Crucially, h increments if f
 # is 0 which happens if d*e ever equals b. All values of d and e from 2 to b are
-# used, so d*e will never equal b if b is prime. So h does not increment if b is
-# prime. b starts at 105700 and increases by 17 until it is 122700---that is, b
-# has 1000 different values.
+# used, so d*e will never equal b if b is prime. So... h does not increment if b
+# is prime. b starts at 105700 and increases by 17 until it is 122700---that is,
+# b has 1000 different values. h's final value will be around the number of
+# composite numbers of those 1000 numbers.
 
 # 01 set b 57
 # 02 set c b
@@ -47,10 +47,9 @@ stopifnot(m$.counts["mul"] == 3025)
 #   31 sub b -17
 #   32 jnz 1 -23           32-09
 
-
-# m2$e <- 105700 - 1
 m2 <- create_coprocessor(c("set a 1", commands))
 
+# Confirm the size of b and c
 m2$.eval_next(2)
 m2$.eval_next(2)
 m2$.eval_next(2)
@@ -63,7 +62,7 @@ m2$.eval_next(2)
 
 is_prime <- function(x) length(unlist(sfsmisc::factorize(x))) == 2
 b_values <- seq(105700, 122700, by = 17)
-n_primes <- lapply(b_values, is_prime) %>% unlist() %>% sum()
+n_primes <- b_values %>% lapply(is_prime) %>% unlist() %>% sum()
 
 # The guess 1000 - n_primes was wrong so I tried again to see if I had an
 # off-by-one error somewhere, so that's how I came up with this answer.
