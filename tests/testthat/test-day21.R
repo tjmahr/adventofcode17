@@ -1,6 +1,6 @@
 context("test-day21.R")
 
-test_that("multiplication works", {
+test_that("matrix enhancement", {
   rules <- c(
     "../.# => ##./#../...",
     ".#./..#/### => #..#/..../..../#..#")

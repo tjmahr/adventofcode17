@@ -11,8 +11,23 @@ seed <- ".#./..#/###" %>%
 
 step1 <- enhance_matrix(seed, rules)
 step2 <- enhance_matrix(step1, rules)
-# step3 <- enhance_matrix(step2, rules)
-# step4 <- enhance_matrix(step3, rules)
-# step5 <- enhance_matrix(step4, rules)
+step3 <- enhance_matrix(step2, rules)
+step4 <- enhance_matrix(step3, rules)
+step5 <- enhance_matrix(step4, rules)
+step6 <- enhance_matrix(step5, rules)
+step7 <- enhance_matrix(step6, rules)
+step8 <- enhance_matrix(step7, rules)
 
-m <- step2
+stopifnot(sum(step5 == "#") == 197)
+
+
+m <- seed
+i <- 0
+while (i < 18) {
+  message(i)
+  message(ncol(m))
+  m <- enhance_matrix(m, rules)
+  i <- i + 1
+}
+
+stopifnot(sum(m == "#") == 3081737)

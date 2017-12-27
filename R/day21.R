@@ -47,17 +47,19 @@ enhance_matrix <- function(m, rules) {
                       indices_of_submatrices[[1]],
                       indices_of_submatrices[[2]])
 
-
   matrices <- sub_matrices %>%
     lapply(matrix_to_string) %>%
     lapply(function(string) unname(rules[string])) %>%
     lapply(string_to_matrix)
 
-  rows <- list()
-  for (seq_run in rowwise) {
-    rows <- c(rows, list(do.call(cbind, matrices[seq_run])))
+  # Assemble the new matrix one column at a time
+  cols <- list()
+  while (length(matrices) != 0) {
+    cols <- c(cols, list(do.call(rbind, matrices[seq_along(colwise)])))
+    matrices[seq_along(colwise)] <- NULL
   }
-  do.call(rbind, rows)
+
+  do.call(cbind, cols)
 }
 
 cross <- function(x1, x2) {
