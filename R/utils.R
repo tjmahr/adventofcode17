@@ -1,3 +1,4 @@
+#' @export
 read_text_lines <- function(x) {
   x %>%
     strsplit("\\n") %>%
