@@ -53,7 +53,7 @@ create_solo <- function(commands) {
   # Set a value but don't change the current command
   quiet_set <- function(symbol, value) {
     symbol <- enexpr(symbol)
-    rlang::env_bind(register, !! symbol := as.numeric(value))
+    rlang::env_bind(register, !! rlang::as_string(symbol) := as.numeric(value))
   }
 
   # Initialize any new symbols to 0
@@ -75,7 +75,7 @@ create_solo <- function(commands) {
     value <- enexpr(value)
     value <- rlang::eval_tidy(value, env = register)
 
-    rlang::env_bind(register, !! symbol := value)
+    rlang::env_bind(register, !! rlang::as_string(symbol) := value)
     step(1)
   }
 
@@ -206,7 +206,7 @@ create_duet <- function(program_id, commands) {
 
   quiet_set <- function(symbol, value) {
     symbol <- enexpr(symbol)
-    rlang::env_bind(register, !! symbol := as.numeric(value))
+    rlang::env_bind(register, !! rlang::as_string(symbol) := as.numeric(value))
   }
 
   check_for_new_symbols <- function(symbol) {
@@ -223,7 +223,7 @@ create_duet <- function(program_id, commands) {
     value <- enexpr(value)
     value <- rlang::eval_tidy(value, env = register)
 
-    rlang::env_bind(register, !! symbol := value)
+    rlang::env_bind(register, !! rlang::as_string(symbol) := value)
     step(1)
   }
 
