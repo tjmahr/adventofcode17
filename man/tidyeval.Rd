@@ -7,7 +7,6 @@
 \alias{enquo}
 \alias{sym}
 \alias{syms}
-\alias{ensym}
 \alias{expr}
 \alias{exprs}
 \alias{enexpr}

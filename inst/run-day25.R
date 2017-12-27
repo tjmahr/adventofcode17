@@ -60,6 +60,7 @@
 #   - Write the value 1.
 # - Move one slot to the right.
 # - Continue with state A.
+library(adventofcode17)
 
 rules <- list(
   create_tm_rule("A", "0", "1", "R", "B"),
@@ -76,11 +77,9 @@ rules <- list(
   create_tm_rule("F", "1", "1", "R", "A")
 )
 
-rules <- rules
-starting_state <- "A"
 m1 <- turing_machine(rules, "A")
-i <- 0L
 
+i <- 0L
 while (i < 12172063L) {
   if (i %% 100000L == 0L) message(i)
   m1$step()
