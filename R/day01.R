@@ -1,4 +1,4 @@
-#' Day 1: Inverse Captcha
+#' Day 01: Inverse Captcha
 #'
 #' [Inverse Captcha](http://adventofcode.com/2017/day/1)
 #'
@@ -75,8 +75,14 @@
 #' -   `12131415` produces `4`.
 #'
 #' *What is the solution* to your new captcha?
+#'
+#' @param x a number
+#' @return the specified sum of digits
 #' @rdname day01
 #' @export
+#' @examples
+#' sum_of_digits_matching_next(91212129)
+#' sum_of_digits_matching_halfway_around(12131415)
 sum_of_digits_matching_next <- function(x) {
   x <- as.character(x)
   digits <- extract_digits(x)
@@ -107,13 +113,5 @@ sum_of_digits_matching_halfway_around <- function(x) {
 }
 
 extract_digits <- function(x) {
-  x %>%
-    str_tokenize() %>%
-    unlist() %>%
-    as.numeric()
+  as.numeric(str_tokenize(x))
 }
-
-str_tokenize <- function(xs) {
-  strsplit(xs, "")
-}
-

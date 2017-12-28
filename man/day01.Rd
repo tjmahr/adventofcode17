@@ -9,6 +9,12 @@ sum_of_digits_matching_next(x)
 
 sum_of_digits_matching_halfway_around(x)
 }
+\arguments{
+\item{x}{a number}
+}
+\value{
+the specified sum of digits
+}
 \description{
 \href{http://adventofcode.com/2017/day/1}{Inverse Captcha}
 }
@@ -86,4 +92,8 @@ other digit has a match.
 }
 
 \emph{What is the solution} to your new captcha?
+}
+\examples{
+sum_of_digits_matching_next(91212129)
+sum_of_digits_matching_halfway_around(12131415)
 }

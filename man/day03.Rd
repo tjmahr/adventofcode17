@@ -9,6 +9,9 @@ spiral_distance(x)
 
 find_first_spiral_step_bigger_than_target(target)
 }
+\arguments{
+\item{x}{a target number for a spiral}
+}
 \description{
 \href{http://adventofcode.com/2017/day/3}{Spiral Memory}
 }
@@ -76,4 +79,9 @@ first few squares would receive the following values:\preformatted{147  142  133
 
 What is the \emph{first value written} that is \emph{larger} than your puzzle
 input?
+}
+\examples{
+spiral_distance(190)
+
+find_first_spiral_step_bigger_than_target(190)
 }

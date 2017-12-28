@@ -1,4 +1,4 @@
-#' Day 4: High-Entropy Passphrases
+#' Day 04: High-Entropy Passphrases
 #'
 #' [High-Entropy Passphrases](http://adventofcode.com/2017/day/4)
 #'
@@ -46,8 +46,15 @@
 #'
 #' @rdname day04
 #' @export
-count_valid_passphrases <- function(x, rule = no_repeated_words) {
-  lines <- read_text_lines(x)
+#' @param passphrases a string of passphrases
+#' @param x a passphrase to check
+#' @param rule a function for checking passphrases
+#' @examples
+#' ps <- "abcde xyz ecdab\niiii oiii ooii oooi oooo\naa bb cc dd aa"
+#' count_valid_passphrases(ps, no_repeated_words)
+#' count_valid_passphrases(ps, no_anagrams)
+count_valid_passphrases <- function(passphrases, rule = no_repeated_words) {
+  lines <- read_text_lines(passphrases)
   sum(rule(lines))
 }
 

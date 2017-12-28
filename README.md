@@ -24,14 +24,15 @@ write those descriptions, obviously.
 
 Coding approaches
 
-- 01a : .
-- 01b : .
-- 02a : .
-- 02b : .
-- 03a : .
-- 03b : .
-- 04a : .
-- 04b : .
+- 01a/b Compute different kinds of sums for elements in a circular vector: 
+  Reordering indices.
+- 02a/b Compute different kinds of checksums on integer sequences: 
+  Functional programming.
+- 03a If positive integers are in a spiral, find taxicab distance of 
+  _n_ from 1: Math.
+- 03b In a different kind of spiral, find first number after _n_: 
+  Enumerate values.
+- 04a/b Check if strings meet certain rules: Functional programming.
 - 05a : .
 - 05b : .
 - 06a : .
@@ -58,20 +59,16 @@ Coding approaches
 - 16b : .
 - 17a : .
 - 17b : .
-- 18a/b Simulate register machine: Nonstandard evaluation, object 
-  oriented programming.
+- 18a/b Simulate register machine: Nonstandard evaluation, objects.
 - 19a : .
 - 19b : .
 - 20a : .
 - 20b : .
 - 21a : .
 - 21b : .
-- 22a/b Move a cursor around a grid and change symbols: Object oriented
-  programming.
-- 23a Simulate register machine: Nonstandard evaluation, object 
-  oriented programming.
+- 22a/b Move a cursor around a grid and change symbols: Objects.
+- 23a Simulate register machine: Nonstandard evaluation, objects.
 - 23b Compute value in an _inefficient_ register machine: Analyzing code.
 - 24a/b Find largest/longest combinations of units: Recursion, 
   functional programming.
-- 25a Create a Turing Machine: Object oriented programming.
-- 25b : .
+- 25a Create a Turing Machine: Objects.

@@ -1,4 +1,4 @@
-#' Day 2: Corruption Checksum
+#' Day 02: Corruption Checksum
 #'
 #' [Corruption Checksum](http://adventofcode.com/2017/day/2)
 #'
@@ -64,34 +64,44 @@
 #' In this example, the sum of the results would be `4 + 3 + 2 = 9`.
 #'
 #' What is the *sum of each row's result* in your puzzle input?
+#'
+#' @param spreadsheet a single string with a spreadsheet
+#' @param f_filter a function to find a pair on each spreadsheet row
+#' @param f_combine a function to apply on the pair from each line
+#' @param x a vector of integers to filter
 #' @rdname day02
 #' @export
-checksum_range <- function(x) {
-  parse_spreadsheet(x) %>%
-    lapply(function(x) max(x) - min(x)) %>%
+#' @examples
+#' s1 <- "5 1 9 5\n7 5 3\n2 4 6 8"
+#' spreadsheet_checksum(s1, max_min_pair, function(x) max(x) - min(x))
+#'
+#' s2 <- "5 9 2 8\n9 4 7 3\n3 8 6 5"
+#' spreadsheet_checksum(s2, evenly_divisible_pair, function(x) max(x) / min(x))
+spreadsheet_checksum <- function(spreadsheet, f_filter, f_combine) {
+  parse_spreadsheet(spreadsheet) %>%
+    lapply(f_filter) %>%
+    lapply(f_combine) %>%
     unlist() %>%
     sum()
 }
 
 #' @rdname day02
 #' @export
-checksum_evenly_divisible <- function(x) {
-  parse_spreadsheet(x) %>%
-    lapply(find_evenly_divisible_pair) %>%
-    lapply(function(x) max(x) / min(x)) %>%
-    unlist() %>%
-    sum()
-}
-
-find_evenly_divisible_pair <- function(x) {
+evenly_divisible_pair <- function(x) {
   x %>%
     # Take all pairs
     utils::combn(2) %>%
     apply(2, list) %>%
     lapply(unlist) %>%
     # Keep just evenly divisible pairs
-    Filter(function(x) max(x) %% min(x) == 0, .) %>%
+    keep_if(function(x) max(x) %% min(x) == 0) %>%
     unlist()
+}
+
+#' @rdname day02
+#' @export
+max_min_pair <- function(x) {
+  range(x)
 }
 
 parse_spreadsheet <- function(x) {
@@ -102,6 +112,6 @@ parse_spreadsheet <- function(x) {
     # Find numbers on each line
     stringr::str_extract_all("\\d+") %>%
     lapply(as.numeric) %>%
-    Filter(function(x) length(x) != 0, .)
+    keep_if(function(x) length(x) != 0)
 }
 

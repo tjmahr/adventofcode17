@@ -21,6 +21,10 @@ insert_value <- function(vector, position, value) {
   c(start, value, rest)
 }
 
+str_tokenize <- function(xs) {
+  unlist(strsplit(xs, ""))
+}
+
 #' @export
 `%nin%` <- Negate(`%in%`)
 

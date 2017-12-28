@@ -1,4 +1,4 @@
-#' Day 3: Spiral Memory
+#' Day 03: Spiral Memory
 #'
 #' [Spiral Memory](http://adventofcode.com/2017/day/3)
 #'
@@ -69,8 +69,13 @@
 #' What is the *first value written* that is *larger* than your puzzle
 #' input?
 #'
+#' @param x a target number for a spiral
 #' @rdname day03
 #' @export
+#' @examples
+#' spiral_distance(190)
+#'
+#' find_first_spiral_step_bigger_than_target(190)
 spiral_distance <- function(x) {
   coords <- find_coordinate_of_number(x)
   abs(coords$x) + abs(coords$y)

@@ -6,11 +6,18 @@
 \alias{no_anagrams}
 \title{Day 4: High-Entropy Passphrases}
 \usage{
-count_valid_passphrases(x, rule = no_repeated_words)
+count_valid_passphrases(passphrases, rule = no_repeated_words)
 
 no_repeated_words(x)
 
 no_anagrams(x)
+}
+\arguments{
+\item{passphrases}{a string of passphrases}
+
+\item{rule}{a function for checking passphrases}
+
+\item{x}{a passphrase to check}
 }
 \description{
 \href{http://adventofcode.com/2017/day/4}{High-Entropy Passphrases}
@@ -57,4 +64,9 @@ rearranged to form any other word.
 }
 
 Under this new system policy, \emph{how many passphrases are valid?}
+}
+\examples{
+ps <- "abcde xyz ecdab\\niiii oiii ooii oooi oooo\\naa bb cc dd aa"
+count_valid_passphrases(ps, no_repeated_words)
+count_valid_passphrases(ps, no_anagrams)
 }
