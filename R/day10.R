@@ -155,6 +155,16 @@
 #'
 #' @rdname day10
 #' @export
+#' @param args a list of arguments to control the twisting
+#' @param seed a value to hash
+#' @examples
+#' args <- list(
+#'   items = 0:4,
+#'   step = 0,
+#'   current_position = 1,
+#'   lengths = c(3, 4, 1, 5))
+#' twist_knot(args)
+#' knot_hash("test")
 twist_knot <- function(args) {
   while (length(args$lengths) > 0) {
     args <- do_call_twist_a_knot(args)
@@ -176,22 +186,6 @@ twist_a_knot <- function(items, lengths, current_position, step, ...) {
       wrap_around(length(xs))
     xs[positions] <- rev(xs[positions])
     xs
-  }
-
-  # Wrap position indices larger than a vector's length around the vector
-  #
-  # wrap_around(c(2, 3, 4, 5), length = 3) => 2 3 1 2
-  wrap_around <- function(xs, length) {
-    ((xs - 1) %% length) + 1
-
-    # I originally had the code below. It works for Part A and the empty string
-    # test case for Part B but failed everywhere else. It was kind of maddening.
-    # It failed when the offsets got too big because `2 * length` would map to
-    # position 0 instead of position 1. The solution I used above basically
-    # converts from R's 1-based positions to 0-based positions, wraps around,
-    # and converts back to 1-based positions.
-
-    # bad_code_dont_use <- ifelse(length < xs, (xs %% length), xs)
   }
 
   items <- rev_items(items, current_position, current_length)

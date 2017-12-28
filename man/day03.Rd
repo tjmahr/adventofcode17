@@ -3,14 +3,14 @@
 \name{spiral_distance}
 \alias{spiral_distance}
 \alias{find_first_spiral_step_bigger_than_target}
-\title{Day 3: Spiral Memory}
+\title{Day 03: Spiral Memory}
 \usage{
-spiral_distance(x)
+spiral_distance(target)
 
 find_first_spiral_step_bigger_than_target(target)
 }
 \arguments{
-\item{x}{a target number for a spiral}
+\item{target}{a target number for a spiral}
 }
 \description{
 \href{http://adventofcode.com/2017/day/3}{Spiral Memory}

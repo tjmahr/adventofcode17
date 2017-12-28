@@ -1,4 +1,4 @@
-#' Day 6: Memory Reallocation
+#' Day 06: Memory Reallocation
 #'
 #' [Memory Reallocation](http://adventofcode.com/2017/day/6)
 #'
@@ -69,6 +69,9 @@
 #'
 #' @rdname day06
 #' @export
+#' @param xs a vector of memory values
+#' @examples
+#' analyze_reallocations(c(0, 2, 7, 0))
 analyze_reallocations <- function(xs) {
   cycle <- 1
   history <- character()
@@ -78,7 +81,7 @@ analyze_reallocations <- function(xs) {
   while(splat(xs) %nin% history) {
     history[cycle] <- splat(xs)
     cycle <- cycle + 1
-    xs <- xs %>% reallocate()
+    xs <- reallocate(xs)
   }
   history[cycle] <- splat(xs)
 

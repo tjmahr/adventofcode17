@@ -44,6 +44,10 @@
 #'
 #' @rdname day11
 #' @export
+#' @param steps a sequence of hexagon directions
+#' @examples
+#' hexagon_distance(c("se", "sw", "se", "sw", "sw"))
+#' find_longest_hexagon_distance(c("se", "sw", "se", "sw", "sw"))
 hexagon_distance <- function(steps) {
   distances <- steps_to_distance(steps)
   reduce_me <- distances %>% as.list()
@@ -55,10 +59,16 @@ hexagon_distance <- function(steps) {
   if (reduce_me$x != 0) {
     ew <- ifelse(reduce_me$x > 0, "e", "w")
     ew_ones <- rep(ew, abs(reduce_me$x / .5))
-    ns <- ifelse(reduce_me$y > 0, "n", "s")
-    x_reduce_steps <- paste0(rep(ns, length(ew_ones)), ew_ones)
-    distances <- distances - steps_to_distance(x_reduce_steps)
-    reduce_me <- as.list(distances)
+    x_reduce_steps <- character(length(ew_ones))
+
+    # Decide whether to go north w/e or south w/e based on north-south distance
+    for (move_i in seq_along(ew_ones)) {
+
+      ns <- ifelse(reduce_me$y >= 0, "n", "s")
+      x_reduce_steps[move_i] <- paste0(ns, ew_ones[move_i])
+      distances <- distances - steps_to_distance(x_reduce_steps[move_i])
+      reduce_me <- as.list(distances)
+    }
   }
 
   # Find minimum number of steps to get y to 0

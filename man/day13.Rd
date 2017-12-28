@@ -9,6 +9,11 @@ calculate_firewall_severity(scanner_lines)
 
 determine_firewall_delay(scanner_lines, start_delay = 0)
 }
+\arguments{
+\item{scanner_lines}{a description of the scanners}
+
+\item{start_delay}{start computing the delay from this value}
+}
 \description{
 \href{http://adventofcode.com/2017/day/13}{Packet Scanners}
 }
@@ -764,4 +769,13 @@ packet to pass through the firewall without being caught?
 [ ]: R:%20
 [ ]: R:%20
 [ ]: R:%20
+}
+\examples{
+"0: 3\\n1: 2\\n4: 4\\n6: 4" \%>\%
+  read_text_lines() \%>\%
+  calculate_firewall_severity()
+
+"0: 3\\n1: 2\\n4: 4\\n6: 4" \%>\%
+  read_text_lines() \%>\%
+  determine_firewall_delay()
 }

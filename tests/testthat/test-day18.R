@@ -16,8 +16,8 @@ test_that("updating a solo machine", {
     read_text_lines() %>%
     create_solo()
 
-  # "The first four instructions set a to 1, add 2 to it, square it, and then set
-  # it to itself modulo 5, resulting in a value of 4."
+  # "The first four instructions set a to 1, add 2 to it, square it, and then
+  # set it to itself modulo 5, resulting in a value of 4."
   machine$.eval_next()
   machine$.eval_next()
   machine$.eval_next()

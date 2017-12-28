@@ -4,7 +4,7 @@
 \alias{spreadsheet_checksum}
 \alias{evenly_divisible_pair}
 \alias{max_min_pair}
-\title{Day 2: Corruption Checksum}
+\title{Day 02: Corruption Checksum}
 \usage{
 spreadsheet_checksum(spreadsheet, f_filter, f_combine)
 

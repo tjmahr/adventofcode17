@@ -2,9 +2,12 @@
 % Please edit documentation in R/day06.R
 \name{analyze_reallocations}
 \alias{analyze_reallocations}
-\title{Day 6: Memory Reallocation}
+\title{Day 06: Memory Reallocation}
 \usage{
 analyze_reallocations(xs)
+}
+\arguments{
+\item{xs}{a vector of memory values}
 }
 \description{
 \href{http://adventofcode.com/2017/day/6}{Memory Reallocation}
@@ -73,4 +76,7 @@ the answer in that example would be \code{4}.
 
 \emph{How many cycles} are in the infinite loop that arises from the
 configuration in your puzzle input?
+}
+\examples{
+analyze_reallocations(c(0, 2, 7, 0))
 }

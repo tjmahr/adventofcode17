@@ -57,6 +57,12 @@
 #'
 #' @rdname day16
 #' @export
+#' @param programs a string of letters to reorder
+#' @param moves a string of moves to do
+#' @examples
+#' programs <- "abcde"
+#' moves <- "s1,x3/4,pe/b"
+#' dance(programs, moves)
 dance <- function(programs, moves) {
   x <- programs %>%
     strsplit("") %>%
@@ -136,15 +142,16 @@ str_rest <- function(string) substr(string, 2, nchar(string))
 
 # Convert a dance move into an R expression
 parse_dance_move <- function(string) {
+  x <- sym("x")
   if (substr(string, 1, 1) == "s") {
     n <- as.numeric(str_rest(string))
-    q <- quo(spin(x, !! n))
+    q <- quo(spin(!! x, !! n))
   } else if (substr(string, 1, 1) == "x") {
     n <- as.numeric(unlist(strsplit(str_rest(string), "/")))
-    q <- quo(exchange(x, !! n[1], !! n[2]))
+    q <- quo(exchange(!! x, !! n[1], !! n[2]))
   } else if (substr(string, 1, 1) == "p") {
     y <- unlist(strsplit(str_rest(string), "/"))
-    q <- quo(partner(x, !! y[1], !! y[2]))
+    q <- quo(partner(!! x, !! y[1], !! y[2]))
   }
   q
 }

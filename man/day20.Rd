@@ -4,19 +4,124 @@
 \alias{find_slowest_particle}
 \alias{create_particles}
 \alias{search_and_destroy_particles}
-\title{Day 20: Title}
+\title{Day 20: Particle Swarm}
 \usage{
 find_slowest_particle(p_strings)
 
 create_particles(p_strings)
 
-search_and_destroy_particles(particles)
+search_and_destroy_particles(particles, min_ticks = 10)
+}
+\arguments{
+\item{p_strings}{lines of text describing particles}
+
+\item{particles}{particle objects}
+
+\item{min_ticks}{simulate the swarm for at least this many steps}
 }
 \description{
-\href{http://adventofcode.com/2017/day/20}{Title}
+\href{http://adventofcode.com/2017/day/20}{Particle Swarm}
 }
 \details{
 \strong{Part One}
 
+Suddenly, the GPU contacts you, asking for help.
+Someone has asked it to simulate \emph{too many particles}, and it won't be
+able to finish them all in time to render the next frame at this rate.
+
+It transmits to you a buffer (your puzzle input) listing each particle
+in order (starting with particle \code{0}, then particle \code{1}, particle \code{2},
+and so on). For each particle, it provides the \code{X}, \code{Y}, and \code{Z}
+coordinates for the particle's position (\code{p}), velocity (\code{v}), and
+acceleration (\code{a}), each in the format \code{&lt;X,Y,Z&gt;}.
+
+Each tick, all particles are updated simultaneously. A particle's
+properties are updated in the following order:
+\itemize{
+\item Increase the \code{X} velocity by the \code{X} acceleration.
+\item Increase the \code{Y} velocity by the \code{Y} acceleration.
+\item Increase the \code{Z} velocity by the \code{Z} acceleration.
+\item Increase the \code{X} position by the \code{X} velocity.
+\item Increase the \code{Y} position by the \code{Y} velocity.
+\item Increase the \code{Z} position by the \code{Z} velocity.
+}
+
+Because of seemingly tenuous rationale involving
+\href{https://en.wikipedia.org/wiki/Z-buffering}{z-buffering}, the GPU would
+like to know which particle will stay closest to position \code{&lt;0,0,0&gt;} in
+the long term. Measure this using the \href{https://en.wikipedia.org/wiki/Taxicab_geometry}{Manhattan distance}, which in this
+situation is simply the sum of the absolute values of a particle's \code{X},
+\code{Y}, and \code{Z} position.
+
+For example, suppose you are only given two particles, both of which
+stay entirely on the X-axis (for simplicity). Drawing the current states
+of particles \code{0} and \code{1} (in that order) with an adjacent a number line
+and diagram of current \code{X} positions (marked in parenthesis), the
+following would take place:\preformatted{p=< 3,0,0>, v=< 2,0,0>, a=<-1,0,0>    -4 -3 -2 -1  0  1  2  3  4
+p=< 4,0,0>, v=< 0,0,0>, a=<-2,0,0>                         (0)(1)
+
+p=< 4,0,0>, v=< 1,0,0>, a=<-1,0,0>    -4 -3 -2 -1  0  1  2  3  4
+p=< 2,0,0>, v=<-2,0,0>, a=<-2,0,0>                      (1)   (0)
+
+p=< 4,0,0>, v=< 0,0,0>, a=<-1,0,0>    -4 -3 -2 -1  0  1  2  3  4
+p=<-2,0,0>, v=<-4,0,0>, a=<-2,0,0>          (1)               (0)
+
+p=< 3,0,0>, v=<-1,0,0>, a=<-1,0,0>    -4 -3 -2 -1  0  1  2  3  4
+p=<-8,0,0>, v=<-6,0,0>, a=<-2,0,0>                         (0)
+}
+
+At this point, particle \code{1} will never be closer to \code{&lt;0,0,0&gt;} than
+particle \code{0}, and so, in the long run, particle \code{0} will stay closest.
+
+\emph{Which particle will stay closest to position \code{&lt;0,0,0&gt;}} in the long
+term?
+
 \strong{Part Two}
+
+To simplify the problem further, the GPU would like to remove any
+particles that \emph{collide}. Particles collide if their positions ever
+\emph{exactly match}. Because particles are updated simultaneously, \emph{more
+than two particles} can collide at the same time and place. Once
+particles collide, they are removed and cannot collide with anything
+else after that tick.
+
+For example:\preformatted{p=<-6,0,0>, v=< 3,0,0>, a=< 0,0,0>
+p=<-4,0,0>, v=< 2,0,0>, a=< 0,0,0>    -6 -5 -4 -3 -2 -1  0  1  2  3
+p=<-2,0,0>, v=< 1,0,0>, a=< 0,0,0>    (0)   (1)   (2)            (3)
+p=< 3,0,0>, v=<-1,0,0>, a=< 0,0,0>
+
+p=<-3,0,0>, v=< 3,0,0>, a=< 0,0,0>
+p=<-2,0,0>, v=< 2,0,0>, a=< 0,0,0>    -6 -5 -4 -3 -2 -1  0  1  2  3
+p=<-1,0,0>, v=< 1,0,0>, a=< 0,0,0>             (0)(1)(2)      (3)
+p=< 2,0,0>, v=<-1,0,0>, a=< 0,0,0>
+
+p=< 0,0,0>, v=< 3,0,0>, a=< 0,0,0>
+p=< 0,0,0>, v=< 2,0,0>, a=< 0,0,0>    -6 -5 -4 -3 -2 -1  0  1  2  3
+p=< 0,0,0>, v=< 1,0,0>, a=< 0,0,0>                       X (3)
+p=< 1,0,0>, v=<-1,0,0>, a=< 0,0,0>
+
+------destroyed by collision------
+------destroyed by collision------    -6 -5 -4 -3 -2 -1  0  1  2  3
+------destroyed by collision------                      (3)
+p=< 0,0,0>, v=<-1,0,0>, a=< 0,0,0>
+}
+
+In this example, particles \code{0}, \code{1}, and \code{2} are simultaneously
+destroyed at the time and place marked \code{X}. On the next tick, particle
+\code{3} passes through unharmed.
+
+\emph{How many particles are left} after all collisions are resolved?
+}
+\examples{
+p_strings <- c("p=<-6,0,0>, v=< 3,0,0>, a=< 0,0,0>",
+               "p=<-4,0,0>, v=< 2,0,0>, a=< 0,0,0>",
+               "p=<-2,0,0>, v=< 1,0,0>, a=< 0,0,0>",
+               "p=< 3,0,0>, v=<-1,0,0>, a=< 0,0,0>")
+find_slowest_particle(p_strings)
+
+particles <- p_strings \%>\%
+  create_particles()
+
+particles \%>\%
+  search_and_destroy_particles(min_ticks = 10)
 }

@@ -3,12 +3,117 @@
 \name{process_stream}
 \alias{process_stream}
 \alias{count_garbage}
-\title{Day 9: Stream Processing}
+\title{Day 09: Stream Processing}
 \usage{
 process_stream(stream)
 
 count_garbage(stream)
 }
+\arguments{
+\item{stream}{a string to process}
+}
 \description{
 \href{http://adventofcode.com/2017/day/9}{Stream Processing}
+}
+\details{
+\strong{Part One}
+
+A large stream blocks your path. According to the locals, it's not safe to
+cross the stream at the moment because it's full of \emph{garbage}. You look down
+at the stream; rather than water, you discover that it's a \emph{stream of
+characters}.
+
+You sit for a while and record part of the stream (your puzzle input). The
+characters represent \emph{groups} - sequences that begin with \code{\{} and end
+with \code{\}}. Within a group, there are zero or more other things,
+separated by commas: either another \emph{group} or \emph{garbage}. Since groups can
+contain other groups, a \code{\}} only closes the \emph{most-recently-opened
+unclosed group} - that is, they are nestable. Your puzzle input represents a
+single, large group which itself contains many smaller ones.
+
+Sometimes, instead of a group, you will find \emph{garbage}. Garbage begins with
+\code{<} and ends with \code{>}. Between those angle brackets, almost any
+character can appear, including \code{\{} and \code{\}}. \emph{Within} garbage,
+\code{<} has no special meaning.
+
+In a futile attempt to clean up the garbage, some program has \emph{canceled} some
+of the characters within it using \code{!}: inside garbage, \emph{any} character
+that comes after \code{!} should be \emph{ignored}, including \code{<}, \code{>},
+and even another \code{!}.
+
+You don't see any characters that deviate from these rules. Outside
+garbage, you only find well-formed groups, and garbage always terminates
+according to the rules above.
+
+Here are some self-contained pieces of garbage:
+\itemize{
+\item \code{<>}, empty garbage.
+\item \code{<random characters>}, garbage containing random characters.
+\item \code{<<<<>}, because the extra \code{<} are ignored.
+\item \code{<\{!>\}>}, because the first \code{>} is canceled.
+\item \code{<!!>}, because the second \code{!} is canceled, allowing the
+\code{>} to terminate the garbage.
+\item \code{<!!!>>}, because the second \code{!} and the first \code{>}
+are canceled.
+\item \code{<o"i!a,<\{i<a>}, which ends at the first \code{>}.
+}
+
+Here are some examples of whole streams and the number of groups they
+contain:
+\itemize{
+\item \code{\{\}}, \code{1} group.
+\item \code{\{\{\{\}\}\}}, \code{3} groups.
+\item \code{\{\{\},\{\}\}}, also \code{3} groups.
+\item \code{\{\{\{\},\{\},\{\{\}\}\}\}}, \code{6} groups.
+\item \code{\{<\{\},\{\},\{\{\}\}>\}}, \code{1} group (which itself contains
+garbage).
+\item \code{\{<a>,<a>,<a>,<a>\}}, \code{1} group.
+\item \code{\{\{<a>\},\{<a>\},\{<a>\},\{<a>\}\}}, \code{5} groups.
+\item \code{\{\{<!>\},\{<!>\},\{<!>\},\{<a>\}\}}, \code{2} groups
+(since all but the last \code{>} are canceled).
+}
+
+Your goal is to find the total score for all groups in your input. Each
+group is assigned a \emph{score} which is one more than the score of the
+group that immediately contains it. (The outermost group gets a score of
+\code{1}.)
+\itemize{
+\item \code{\{\}}, score of \code{1}.
+\item \code{\{\{\{\}\}\}}, score of \code{1 + 2 + 3 = 6}.
+\item \code{\{\{\},\{\}\}}, score of \code{1 + 2 + 2 = 5}.
+\item \code{\{\{\{\},\{\},\{\{\}\}\}\}}, score of
+\code{1 + 2 + 3 + 3 + 3 + 4 = 16}.
+\item \code{\{<a>,<a>,<a>,<a>\}}, score of \code{1}.
+\item \code{\{\{<ab>\},\{<ab>\},\{<ab>\},\{<ab>\}\}},
+score of \code{1 + 2 + 2 + 2 + 2 = 9}.
+\item \code{\{\{<!!>\},\{<!!>\},\{<!!>\},\{<!!>\}\}},
+score of \code{1 + 2 + 2 + 2 + 2 = 9}.
+\item \code{\{\{<a!>\},\{<a!>\},\{<a!>\},\{<ab>\}\}}, score of \code{1 + 2 = 3}.
+}
+
+\emph{What is the total score} for all groups in your input?
+
+\strong{Part Two}
+
+Now, you're ready to remove the garbage.
+
+To prove you've removed it, you need to count all of the characters within
+the garbage. The leading and trailing \code{<} and \code{>} don't count, nor
+do any canceled characters or the \code{!} doing the canceling.
+\itemize{
+\item \code{<>}, \code{0} characters.
+\item \code{<random characters>}, \code{17} characters.
+\item \code{<<<<>}, \code{3} characters.
+\item \code{<\{!>\}>}, \code{2} characters.
+\item \code{<!!>}, \code{0} characters.
+\item \code{<!!!>>}, \code{0} characters.
+\item \code{<\{o"i!a,<\{i<a>}, \code{10} characters.
+}
+
+\emph{How many non-canceled characters are within the garbage} in your puzzle
+input?
+}
+\examples{
+process_stream("{{<ab>},{<ab>},{<ab>},{<ab>}}")
+count_garbage("{{<ab>},{<ab>},{<ab>},{<ab>}}")
 }

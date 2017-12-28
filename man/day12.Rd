@@ -9,6 +9,9 @@ search_pipes_from_zero(pipes)
 
 count_pipe_groups(pipes)
 }
+\arguments{
+\item{pipes}{a character vector of pipe connections}
+}
 \description{
 \href{http://adventofcode.com/2017/day/12}{Digital Plumber}
 }
@@ -79,4 +82,15 @@ In the example above, there were \code{2} groups: one consisting of programs
 \code{0,2,3,4,5,6}, and the other consisting solely of program \code{1}.
 
 \emph{How many groups are there} in total?
+}
+\examples{
+pipes <- "0 <-> 2
+1 <-> 1
+2 <-> 0, 3, 4
+3 <-> 2, 4
+4 <-> 2, 3, 6
+5 <-> 6
+6 <-> 4, 5"
+pipes \%>\% read_text_lines() \%>\% search_pipes_from_zero()
+pipes \%>\% read_text_lines() \%>\% count_pipe_groups()
 }

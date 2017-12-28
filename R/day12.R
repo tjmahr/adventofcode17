@@ -73,6 +73,17 @@
 #'
 #' @rdname day12
 #' @export
+#' @param pipes a character vector of pipe connections
+#' @examples
+#' pipes <- "0 <-> 2
+#' 1 <-> 1
+#' 2 <-> 0, 3, 4
+#' 3 <-> 2, 4
+#' 4 <-> 2, 3, 6
+#' 5 <-> 6
+#' 6 <-> 4, 5"
+#' pipes %>% read_text_lines() %>% search_pipes_from_zero()
+#' pipes %>% read_text_lines() %>% count_pipe_groups()
 search_pipes_from_zero <- function(pipes) {
   graph <- create_graph(pipes)
   graph$breadth_first_search(graph$node_list, "0")

@@ -94,6 +94,13 @@
 #'
 #' @rdname day14
 #' @export
+#' @param key a seed for the hashing
+#' @param seq a set of suffix numbers for the keys
+#' @examples
+#' test_grid <- "flqrgnkx" %>%
+#'   generate_grid_hashes(0:7)
+#' str_sum_ones(test_grid)
+#' count_grid_regions(test_grid)
 generate_grid_hashes <- function(key, seq = 0:127) {
   paste0(key, "-", seq) %>%
     lapply(knot_hash) %>%
@@ -103,6 +110,7 @@ generate_grid_hashes <- function(key, seq = 0:127) {
 
 #' @rdname day14
 #' @export
+#' @param string a string
 str_sum_ones <- function(string) {
   # Count the ones in a string
   string %>%
@@ -145,17 +153,18 @@ binary_to_grid <- function(xs) {
 
 #' @rdname day14
 #' @export
+#' @param bits a matrix of bits to flood-fill
 count_grid_regions <- function(bits) {
   # Get coordinates of next "one" in matrix
-  find_next_one <- function(grid, width = 128) {
+  find_next_one <- function(grid) {
     ones <- which(grid == "one")[1]
     locate_cell_position(grid, ones)
   }
 
   # Get the row, column of the nth item in a matrix
   locate_cell_position <- function(matrix, position) {
-    col <- ((position - 1) %/% ncol(matrix)) + 1
     row <- ((position - 1) %% nrow(matrix)) + 1
+    col <- ((position - 1) %/% nrow(matrix)) + 1
     c(row, col)
   }
 
@@ -177,7 +186,7 @@ count_grid_regions <- function(bits) {
 
   # Find neighbors with a sentinel "one" value
   find_neighboring_ones <- function(grid, cell) {
-    adjacent <- get_neighbors(cell)
+    adjacent <- get_neighbors(cell, grid)
     values <- adjacent %>% lapply(look_up_cell, grid) %>% unlist()
     adjacent[values == "one"]
   }
@@ -194,7 +203,7 @@ count_grid_regions <- function(bits) {
   }
 
   # Get indices of a cell's neigbors
-  get_neighbors <- function(cell, width = 128) {
+  get_neighbors <- function(cell, grid) {
     # Offsets for cells to left, below, above, right
     x <- c(-1,  0, 0, 1)
     y <- c( 0, -1, 1, 0)
@@ -202,8 +211,8 @@ count_grid_regions <- function(bits) {
     ys <- y + cell[2]
 
     # Don't go off the grid
-    bad_x <- which(xs <= 0 | width < xs)
-    bad_y <- which(ys <= 0 | width < ys)
+    bad_x <- which(xs <= 0 | nrow(grid) < xs)
+    bad_y <- which(ys <= 0 | ncol(grid) < ys)
     if (length(c(bad_x, bad_y)) != 0) {
       xs <- xs[-c(bad_x, bad_y)]
       ys <- ys[-c(bad_x, bad_y)]
@@ -213,12 +222,10 @@ count_grid_regions <- function(bits) {
   }
 
   # Convert the bit strings into a grid
-  chars <- bits %>%
-    strsplit("") %>%
-    unlist()
+  chars <- str_tokenize(bits)
 
   # Initialize the region-less 1's to the sentinel value "one"
-  grid <- matrix(chars, nrow = 128, byrow = TRUE)
+  grid <- matrix(chars, nrow = length(bits), byrow = TRUE)
   grid[grid == "1"] <- "one"
 
   # Keep flood-filling new regions until there are no "one"s in grid

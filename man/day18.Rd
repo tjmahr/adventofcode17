@@ -3,17 +3,174 @@
 \name{create_solo}
 \alias{create_solo}
 \alias{create_duet}
-\title{Day 18: Title}
+\alias{in_deadlock}
+\title{Day 18: Duet}
 \usage{
 create_solo(commands)
 
 create_duet(program_id, commands)
+
+in_deadlock(machine1, machine2)
+}
+\arguments{
+\item{commands}{a set of commands for the machine
+commands <- "set a 1
+add a 2
+mul a a
+mod a 5
+snd a
+set a 0
+rcv a
+jgz a -1
+set a 1
+jgz a -2"
+
+machine <- commands %>%
+read_text_lines() %>%
+create_solo()
+
+machine$.eval_next()
+machine$.eval_next()
+machine$.eval_next()
+machine$.eval_next()
+machine$.eval_next()}
+
+\item{program_id}{an integer}
+
+\item{machine1, machine2}{register machines}
 }
 \description{
-\href{http://adventofcode.com/2017/day/18}{Title}
+\href{http://adventofcode.com/2017/day/18}{Duet}
 }
 \details{
 \strong{Part One}
 
+You discover a tablet containing some strange assembly code labeled
+simply "\href{https://en.wikipedia.org/wiki/Duet}{Duet}". Rather than bother
+the sound card with it, you decide to run the code yourself.
+Unfortunately, you don't see any documentation, so you're left to figure
+out what the instructions mean on your own.
+
+It seems like the assembly is meant to operate on a set of \emph{registers}
+that are each named with a single letter and that can each hold a single
+\href{https://en.wikipedia.org/wiki/Integer}{integer}. You suppose each
+register should start with a value of \code{0}.
+
+There aren't that many instructions, so it shouldn't be hard to figure
+out what they do. Here's what you determine:
+\itemize{
+\item \code{snd X} \emph{plays a sound} with a frequency equal to the value of \code{X}.
+\item \code{set X Y} \emph{sets} register \code{X} to the value of \code{Y}.
+\item \code{add X Y} \emph{increases} register \code{X} by the value of \code{Y}.
+\item \code{mul X Y} sets register \code{X} to the result of \emph{multiplying} the value
+contained in register \code{X} by the value of \code{Y}.
+\item \code{mod X Y} sets register \code{X} to the \emph{remainder} of dividing the value
+contained in register \code{X} by the value of \code{Y} (that is, it sets \code{X}
+to the result of \code{X}
+\href{https://en.wikipedia.org/wiki/Modulo_operation}{modulo} \code{Y}).
+\item \code{rcv X} \emph{recovers} the frequency of the last sound played, but only
+when the value of \code{X} is not zero. (If it is zero, the command does
+nothing.)
+\item \code{jgz X Y} \emph{jumps} with an offset of the value of \code{Y}, but only if
+the value of \code{X} is \emph{greater than zero}. (An offset of \code{2} skips the
+next instruction, an offset of \code{-1} jumps to the previous
+instruction, and so on.)
+}
+
+Many of the instructions can take either a register (a single letter) or
+a number. The value of a register is the integer it contains; the value
+of a number is that number.
+
+After each \emph{jump} instruction, the program continues with the
+instruction to which the \emph{jump} jumped. After any other instruction, the
+program continues with the next instruction. Continuing (or jumping) off
+either end of the program terminates it.
+
+For example:\preformatted{set a 1
+add a 2
+mul a a
+mod a 5
+snd a
+set a 0
+rcv a
+jgz a -1
+set a 1
+jgz a -2
+}
+\itemize{
+\item The first four instructions set \code{a} to \code{1}, add \code{2} to it, square
+it, and then set it to itself modulo \code{5}, resulting in a value of
+\code{4}.
+\item Then, a sound with frequency \code{4} (the value of \code{a}) is played.
+\item After that, \code{a} is set to \code{0}, causing the subsequent \code{rcv} and
+\code{jgz} instructions to both be skipped (\code{rcv} because \code{a} is \code{0}, and
+\code{jgz} because \code{a} is not greater than \code{0}).
+\item Finally, \code{a} is set to \code{1}, causing the next \code{jgz} instruction to
+activate, jumping back two instructions to another jump, which jumps
+again to the \code{rcv}, which ultimately triggers the \emph{recover}
+operation.
+}
+
+At the time the \emph{recover} operation is executed, the frequency of the
+last sound played is \code{4}.
+
+\emph{What is the value of the recovered frequency} (the value of the most
+recently played sound) the \emph{first} time a \code{rcv} instruction is executed
+with a non-zero value?
+
 \strong{Part Two}
+
+As you congratulate yourself for a job well done, you notice that the
+documentation has been on the back of the tablet this entire time. While
+you actually got most of the instructions correct, there are a few key
+differences. This assembly code isn't about sound at all - it's meant to
+be run \emph{twice at the same time}.
+
+Each running copy of the program has its own set of registers and
+follows the code independently - in fact, the programs don't even
+necessarily run at the same speed. To coordinate, they use the \emph{send}
+(\code{snd}) and \emph{receive} (\code{rcv}) instructions:
+\itemize{
+\item \code{snd X} \emph{sends} the value of \code{X} to the other program. These values
+wait in a queue until that program is ready to receive them. Each
+program has its own message queue, so a program can never receive a
+message it sent.
+\item \code{rcv X} \emph{receives} the next value and stores it in register \code{X}. If
+no values are in the queue, the program \emph{waits for a value to be
+sent to it}. Programs do not continue to the next instruction until
+they have received a value. Values are received in the order they
+are sent.
+}
+
+Each program also has its own \emph{program ID} (one \code{0} and the other \code{1});
+the register \code{p} should begin with this value.
+
+For example:\preformatted{snd 1
+snd 2
+snd p
+rcv a
+rcv b
+rcv c
+rcv d
+}
+
+Both programs begin by sending three values to the other. Program \code{0}
+sends \code{1, 2, 0}; program \code{1} sends \code{1, 2, 1}. Then, each program
+receives a value (both \code{1}) and stores it in \code{a}, receives another value
+(both \code{2}) and stores it in \code{b}, and then each receives the program ID
+of the other program (program \code{0} receives \code{1}; program \code{1} receives
+\code{0}) and stores it in \code{c}. Each program now sees a different value in
+its own copy of register \code{c}.
+
+Finally, both programs try to \code{rcv} a \emph{fourth} time, but no data is
+waiting for either of them, and they reach a \emph{deadlock}. When this
+happens, both programs terminate.
+
+It should be noted that it would be equally valid for the programs to
+run at different speeds; for example, program \code{0} might have sent all
+three values and then stopped at the first \code{rcv} before program \code{1}
+executed even its first instruction.
+
+Once both of your programs have terminated (regardless of what caused
+them to do so), \emph{how many times did program \code{1} send a value}?
 }

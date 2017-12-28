@@ -1,4 +1,4 @@
-#' Day 7: Recursive Circus
+#' Day 07: Recursive Circus
 #'
 #' [Recursive Circus](http://adventofcode.com/2017/day/7)
 #'
@@ -108,6 +108,29 @@
 #'
 #' @rdname day07
 #' @export
+#' @param lines a character vector of program descriptions
+#' @examples
+#' lines <- "pbga (66)
+#'   xhth (57)
+#'   ebii (61)
+#'   havc (66)
+#'   ktlj (57)
+#'   fwft (72) -> ktlj, cntj, xhth
+#'   qoyq (66)
+#'   padx (45) -> pbga, havc, qoyq
+#'   tknk (41) -> ugml, padx, fwft
+#'   jptl (61)
+#'   ugml (68) -> gyxo, ebii, jptl
+#'   gyxo (61)
+#'   cntj (57)"
+#'
+#' lines %>%
+#'   read_text_lines() %>%
+#'   find_root_program()
+#'
+#' lines %>%
+#'   read_text_lines() %>%
+#'   find_program_imbalance()
 find_root_program <- function(lines) {
   root <- lines %>%
     assemble_program_tree() %>%
@@ -153,7 +176,7 @@ find_program_imbalance <- function(lines) {
     correction
   }
 
-  root <- Filter(function(x) x$depth == 1, programs)[[1]]
+  root <- keep_if(programs, function(x) x$depth == 1)[[1]]
   correct_imbalance(root$name)
 }
 
@@ -176,7 +199,7 @@ analyze_child_weights <- function(programs) {
   # Have each leaf report the weight of it and its children to its parent
   while (max_depth > 1) {
     leaves <- programs %>%
-      Filter(function(x) x$depth == max_depth, .) %>%
+      keep_if(function(x) x$depth == max_depth) %>%
       names()
 
     for (leaf in leaves) {
@@ -219,7 +242,7 @@ assemble_program_tree <- function(lines) {
   }
 
   root <- programs %>%
-    Filter(function(x) is.na(x$parent), .) %>%
+    keep_if(function(x) is.na(x$parent)) %>%
     getElement(1)
 
   # Recursively mark the depth of each program

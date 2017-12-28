@@ -3,7 +3,7 @@
 \name{sum_of_digits_matching_next}
 \alias{sum_of_digits_matching_next}
 \alias{sum_of_digits_matching_halfway_around}
-\title{Day 1: Inverse Captcha}
+\title{Day 01: Inverse Captcha}
 \usage{
 sum_of_digits_matching_next(x)
 

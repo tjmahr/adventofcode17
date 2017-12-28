@@ -9,6 +9,11 @@ twist_knot(args)
 
 knot_hash(seed)
 }
+\arguments{
+\item{args}{a list of arguments to control the twisting}
+
+\item{seed}{a value to hash}
+}
 \description{
 \href{http://adventofcode.com/2017/day/10}{Knot Hash}
 }
@@ -161,4 +166,13 @@ Here are some example hashes:
 Treating your puzzle input as a string of ASCII characters, \emph{what is the
 Knot Hash of your puzzle input?} Ignore any leading or trailing
 whitespace you might encounter.
+}
+\examples{
+args <- list(
+  items = 0:4,
+  step = 0,
+  current_position = 1,
+  lengths = c(3, 4, 1, 5))
+twist_knot(args)
+knot_hash("test")
 }

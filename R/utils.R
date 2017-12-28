@@ -1,10 +1,17 @@
+#' Split and trim new-line-delimited string of values
+#'
+#' @param x a string with values separated by newlines
+#' @return a character vector of values split at newlines and with leading and
+#'   trailing spaces removed
 #' @export
+#' @examples
+#' read_text_lines("a\n  b  \nc    ")
 read_text_lines <- function(x) {
   x %>%
     strsplit("\\n") %>%
     unlist() %>%
     stringr::str_trim() %>%
-    Filter(function(x) x != "", .)
+    keep_if(function(x) x != "")
 }
 
 wrap_around <- function(xs, length) {
@@ -25,9 +32,33 @@ str_tokenize <- function(xs) {
   unlist(strsplit(xs, ""))
 }
 
+#' A negated version of `\%in\%`
+#'
+#' This function is a negated version of \code{\link[base]{\%in\%}}. Returns
+#' `TRUE` when an element on the left-hand side does not have a match on the
+#' right-hand side.
+#'
+#' @name %nin%
+#' @rdname nin
+#' @usage x \%nin\% table
+#' @keywords internal
+#' @param x values to be non-matched
+#' @param table values to be non-matched against
 #' @export
-`%nin%` <- Negate(`%in%`)
+#' @examples
+#' c("a", "b", "x", "y") %nin% c("a", "b", "c", "d")
+`%nin%` <- function(x, table) {
+  Negate(`%in%`)(x, table)
+}
 
+#' Filter values
+#'
+#' This function is [base::Filter()] with its arguments reversed.
+#'
+#' @param data a list to filter
+#' @param predicate a function for filtering items. Values that return `TRUE`
+#'   are kept.
+#' @return the items where the predicate function is `TRUE`
 #' @export
 keep_if <- function(data, predicate) {
   Filter(predicate, data)
@@ -67,7 +98,7 @@ int_to_n_bits <- function(xs, n = 16, start = 1) {
 
 # Too slow versions
 old_int_to_n_bits <- function(xs, n = 16, start = 1) {
-  vapply(xs, int_to_n_bits_one, FUN.VALUE = character(1),
+  vapply(xs, old_int_to_n_bits_one, FUN.VALUE = character(1),
          n = n, start = start, USE.NAMES = FALSE)
 }
 

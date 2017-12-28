@@ -9,6 +9,9 @@ hexagon_distance(steps)
 
 find_longest_hexagon_distance(steps)
 }
+\arguments{
+\item{steps}{a sequence of hexagon directions}
+}
 \description{
 \href{http://adventofcode.com/2017/day/11}{Hex Ed}
 }
@@ -49,4 +52,8 @@ For example:
 
 \emph{How many steps away} is the \emph{furthest} he ever got from his starting
 position?
+}
+\examples{
+hexagon_distance(c("se", "sw", "se", "sw", "sw"))
+find_longest_hexagon_distance(c("se", "sw", "se", "sw", "sw"))
 }

@@ -4,7 +4,7 @@
 \alias{count_valid_passphrases}
 \alias{no_repeated_words}
 \alias{no_anagrams}
-\title{Day 4: High-Entropy Passphrases}
+\title{Day 04: High-Entropy Passphrases}
 \usage{
 count_valid_passphrases(passphrases, rule = no_repeated_words)
 

@@ -4,7 +4,7 @@
 \alias{collect_board_letters}
 \alias{walk_board_from_start}
 \alias{create_board}
-\title{Day 19: Title}
+\title{Day 19: A Series of Tubes}
 \usage{
 collect_board_letters(board)
 
@@ -12,11 +12,102 @@ walk_board_from_start(board)
 
 create_board(strings)
 }
+\arguments{
+\item{board}{a board description}
+
+\item{strings}{a vector of strings describing a board}
+}
 \description{
-\href{http://adventofcode.com/2017/day/19}{Title}
+\href{http://adventofcode.com/2017/day/19}{A Series of Tubes}
 }
 \details{
 \strong{Part One}
 
+Somehow, a network packet got lost
+and ended up here. It's trying to follow a routing diagram (your puzzle
+input), but it's confused about where to go.
+
+Its starting point is just off the top of the diagram. Lines (drawn with
+\code{|}, \code{-}, and \code{+}) show the path it needs to take, starting by going
+down onto the only line connected to the top of the diagram. It needs to
+follow this path until it reaches the end (located somewhere within the
+diagram) and stop there.
+
+Sometimes, the lines cross over each other; in these cases, it needs to
+continue going the same direction, and only turn left or right when
+there's no other option. In addition, someone has left \emph{letters} on the
+line; these also don't change its direction, but it can use them to keep
+track of where it's been. For example:\preformatted{     |
+     |  +--+
+     A  |  C
+ F---|----E|--+
+     |  |  |  D
+     +B-+  +--+
+}
+
+Given this diagram, the packet needs to take the following path:
+\itemize{
+\item Starting at the only line touching the top of the diagram, it must
+go down, pass through \code{A}, and continue onward to the first \code{+}.
+\item Travel right, up, and right, passing through \code{B} in the process.
+\item Continue down (collecting \code{C}), right, and up (collecting \code{D}).
+\item Finally, go all the way left through \code{E} and stopping at \code{F}.
+}
+
+Following the path to the end, the letters it sees on its path are
+\code{ABCDEF}.
+
+The little packet looks up at you, hoping you can help it find the way.
+\emph{What letters will it see} (in the order it would see them) if it
+follows the path? (The routing diagram is very wide; make sure you view
+it without line wrapping.)
+
 \strong{Part Two}
+
+The packet is curious how many steps it needs to go.
+
+For example, using the same routing diagram from the example above...\preformatted{     |
+     |  +--+
+     A  |  C
+ F---|--|-E---+
+     |  |  |  D
+     +B-+  +--+
+}
+
+...the packet would go:
+\itemize{
+\item \code{6} steps down (including the first line at the top of the diagram).
+\item \code{3} steps right.
+\item \code{4} steps up.
+\item \code{3} steps right.
+\item \code{4} steps down.
+\item \code{3} steps right.
+\item \code{2} steps up.
+\item \code{13} steps left (including the \code{F} it stops on).
+}
+
+This would result in a total of \code{38} steps.
+
+\emph{How many steps} does the packet need to go?
+}
+\examples{
+# The vector below has this grid line by line:
+#     |
+#     |  +--+
+#     A  |  C
+# F---|----E|--+
+#     |  |  |  D
+#     +B-+  +--+
+grid <- c("    |", "    |  +--+", "    A  |  C", "F---|----E|--+",
+          "    |  |  |  D", "    +B-+  +--+")
+
+grid \%>\%
+  create_board() \%>\%
+  collect_board_letters() \%>\%
+  paste0(collapse = "")
+
+grid \%>\%
+  create_board() \%>\%
+  walk_board_from_start() \%>\%
+  length()
 }

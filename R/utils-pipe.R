@@ -9,5 +9,4 @@
 #' @importFrom magrittr %>%
 #' @usage lhs \%>\% rhs
 #' @noMd
-#' @noRd
 NULL

@@ -9,6 +9,11 @@ dance(programs, moves)
 
 dance_a_billion_times(programs, moves)
 }
+\arguments{
+\item{programs}{a string of letters to reorder}
+
+\item{moves}{a string of moves to do}
+}
 \description{
 \href{http://adventofcode.com/2017/day/16}{Permutation Promenade}
 }
@@ -66,4 +71,9 @@ In the example above, their second dance would \emph{begin} with the order
 }
 
 \emph{In what order are the programs standing} after their billion dances?
+}
+\examples{
+programs <- "abcde"
+moves <- "s1,x3/4,pe/b"
+dance(programs, moves)
 }

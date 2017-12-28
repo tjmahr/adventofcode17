@@ -134,6 +134,8 @@
 #'
 #' @rdname day15
 #' @export
+#' @param a,b generators
+#' @param n_times number of items to judge
 judge_generators <- function(a, b, n_times = 1000000) {
   # I struggled to write this in a high-level reusable code, but it was always
   # so slow. So I'm just going low-level. Get the first 16 bits from each number
@@ -153,6 +155,8 @@ judge_generators <- function(a, b, n_times = 1000000) {
 
 #' @rdname day15
 #' @export
+#' @param seed,factor,divisor integers for generation formula
+#' @param criterion rule for emitting new values
 create_generator <- function(seed, factor, divisor, criterion = always_true) {
   last_one <- seed
   function(n = 1) {
@@ -171,6 +175,7 @@ create_generator <- function(seed, factor, divisor, criterion = always_true) {
 
 #' @rdname day15
 #' @export
+#' @param x a number to test
 always_true <- function(x) TRUE
 
 #' @rdname day15

@@ -12,6 +12,15 @@ str_sum_ones(string)
 
 count_grid_regions(bits)
 }
+\arguments{
+\item{key}{a seed for the hashing}
+
+\item{seq}{a set of suffix numbers for the keys}
+
+\item{string}{a string}
+
+\item{bits}{a matrix of bits to flood-fill}
+}
 \description{
 \href{http://adventofcode.com/2017/day/14}{Disk Defragmentation}
 }
@@ -93,4 +102,10 @@ connected when considering the whole 128x128 grid. In total, in this
 example, \code{1242} regions are present.
 
 \emph{How many regions} are present given your key string?
+}
+\examples{
+test_grid <- "flqrgnkx" \%>\%
+  generate_grid_hashes(0:7)
+str_sum_ones(test_grid)
+count_grid_regions(test_grid)
 }

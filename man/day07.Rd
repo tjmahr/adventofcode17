@@ -3,11 +3,14 @@
 \name{find_root_program}
 \alias{find_root_program}
 \alias{find_program_imbalance}
-\title{Day 7: Recursive Circus}
+\title{Day 07: Recursive Circus}
 \usage{
 find_root_program(lines)
 
 find_program_imbalance(lines)
+}
+\arguments{
+\item{lines}{a character vector of program descriptions}
 }
 \description{
 \href{http://adventofcode.com/2017/day/7}{Recursive Circus}
@@ -113,4 +116,27 @@ made, its weight would be \code{60}.
 
 Given that exactly one program is the wrong weight, \emph{what would its
 weight need to be} to balance the entire tower?
+}
+\examples{
+lines <- "pbga (66)
+  xhth (57)
+  ebii (61)
+  havc (66)
+  ktlj (57)
+  fwft (72) -> ktlj, cntj, xhth
+  qoyq (66)
+  padx (45) -> pbga, havc, qoyq
+  tknk (41) -> ugml, padx, fwft
+  jptl (61)
+  ugml (68) -> gyxo, ebii, jptl
+  gyxo (61)
+  cntj (57)"
+
+lines \%>\%
+  read_text_lines() \%>\%
+  find_root_program()
+
+lines \%>\%
+  read_text_lines() \%>\%
+  find_program_imbalance()
 }

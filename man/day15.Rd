@@ -18,6 +18,17 @@ is_divisible_by_4(x)
 
 is_divisible_by_8(x)
 }
+\arguments{
+\item{a, b}{generators}
+
+\item{n_times}{number of items to judge}
+
+\item{seed, factor, divisor}{integers for generation formula}
+
+\item{criterion}{rule for emitting new values}
+
+\item{x}{a number to test}
+}
 \description{
 \href{http://adventofcode.com/2017/day/15}{Dueling Generators}
 }
