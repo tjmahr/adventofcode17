@@ -21,3 +21,57 @@ as much of the heavy lifting as possible. So far I have allowed myself to use:
 I've put my R source code under a GPL-3 license. It should not apply to the
 puzzle descriptions in the code comments at the top of each file. I did not
 write those descriptions, obviously.
+
+Coding approaches
+
+- 01a : .
+- 01b : .
+- 02a : .
+- 02b : .
+- 03a : .
+- 03b : .
+- 04a : .
+- 04b : .
+- 05a : .
+- 05b : .
+- 06a : .
+- 06b : .
+- 07a : .
+- 07b : .
+- 08a : .
+- 08b : .
+- 09a : .
+- 09b : .
+- 10a : .
+- 10b : .
+- 11a : .
+- 11b : .
+- 12a : .
+- 12b : .
+- 13a : .
+- 13b : .
+- 14a : .
+- 14b : .
+- 15a : .
+- 15b : .
+- 16a : .
+- 16b : .
+- 17a : .
+- 17b : .
+- 18a/b Simulate register machine: Nonstandard evaluation, object 
+  oriented programming.
+- 19a : .
+- 19b : .
+- 20a : .
+- 20b : .
+- 21a : .
+- 21b : .
+- 22a/b Move a cursor around a grid and change symbols: Object oriented
+  programming.
+- 23a Simulate register machine: Nonstandard evaluation, object 
+  oriented programming.
+- 23b Compute value in an _inefficient_ register machine: Analyzing code.
+- 24a/b Find largest/longest combinations of units: Recursion, 
+  functional programming.
+- 25a Create a Turing Machine: Object oriented programming.
+- 25b : .
