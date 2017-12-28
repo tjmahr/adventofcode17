@@ -1,3 +1,4 @@
+#' Advent of Code 2017 solutions
 #' @export
 aoc17_solutions <- list(
   day01a = 995,

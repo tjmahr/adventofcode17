@@ -2,12 +2,12 @@ library(adventofcode17)
 
 lines <- readLines("./inst/input13.txt")
 severity <- calculate_firewall_severity(lines)
-stopifnot(severity == 1316)
+stopifnot(severity == aoc17_solutions$day13a)
 
 # Wow, this is slooow. I probably could do an analytically thing to skip delays
 # every other delay if 2 is a range or every 4th if 3 is a range, etc.
 delay <- determine_firewall_delay(lines, start_delay = 3840050)
-stopifnot(delay == 3840052)
+stopifnot(delay == aoc17_solutions$day13b)
 
 
 

@@ -7,7 +7,7 @@ while (length(machine$.messages) == 0) {
   machine$.eval_next()
 }
 
-stopifnot(machine$.messages == 1187)
+stopifnot(machine$.messages == aoc17_solutions$day18a)
 
 
 m0 <- create_duet(0, commands)
@@ -23,4 +23,4 @@ while (!in_deadlock(m0, m1)) {
   m1$.receive(m0$.post())
 }
 
-stopifnot(m1$.send_count == 5969)
+stopifnot(m1$.send_count == aoc17_solutions$day18b)

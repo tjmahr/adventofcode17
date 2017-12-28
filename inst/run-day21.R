@@ -18,7 +18,7 @@ step6 <- enhance_matrix(step5, rules)
 step7 <- enhance_matrix(step6, rules)
 step8 <- enhance_matrix(step7, rules)
 
-stopifnot(sum(step5 == "#") == 197)
+stopifnot(sum(step5 == "#") == aoc17_solutions$day21a)
 
 
 m <- seed
@@ -30,4 +30,4 @@ while (i < 18) {
   i <- i + 1
 }
 
-stopifnot(sum(m == "#") == 3081737)
+stopifnot(sum(m == "#") == aoc17_solutions$day21b)

@@ -28,7 +28,7 @@ input <-
 
 grid <- input %>% read_text_lines() %>% virus_grid()
 grid$step(10000)
-stopifnot(grid$get_infect_count() == 5570)
+stopifnot(grid$get_infect_count() == aoc17_solutions$day22a)
 
 # Part B takes forever!
 seriously <- FALSE
@@ -40,7 +40,7 @@ if (seriously) {
     grid$step(1000)
     left <- left - 1000
   }
-  stopifnot(grid$get_infect_count() == 2512022)
+  stopifnot(grid$get_infect_count() == aoc17_solutions$day22b)
 }
 
 

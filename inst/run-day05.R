@@ -1,8 +1,8 @@
 library(adventofcode17)
 x <- readLines("./inst/input05.txt")
 
-p1 <- follow_day05a_instructions(x)
-p2 <- follow_day05b_instructions(x)
+p1 <- find_time_to_escape_trampolines(x)
+p2 <- find_time_to_escape_twistolines(x)
 
-stopifnot(p1 == 342669)
-stopifnot(p2 == 25136209)
+stopifnot(p1 == aoc17_solutions$day05a)
+stopifnot(p2 == aoc17_solutions$day05b)

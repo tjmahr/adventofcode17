@@ -1,7 +1,6 @@
 context("test-day14.R")
 
 test_that("getting bits of a knot hash", {
-
   "a0c2017..." %>%
     convert_knot_hash_to_bits() %>%
     substr(1, 32) %>%
@@ -24,5 +23,4 @@ test_that("getting bits of a knot hash", {
     lapply(binary_to_grid) %>%
     unlist() %>%
     expect_equal(grid_samples)
-
 })

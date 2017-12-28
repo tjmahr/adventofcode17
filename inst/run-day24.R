@@ -13,7 +13,7 @@ r3_champ <- find_strongest_bridge(r3)
 
 champ <- find_strongest_bridge(c(r1_champ, r2_champ, r3_champ))
 
-stopifnot(compute_bridge_strength(champ) == 2006)
+stopifnot(compute_bridge_strength(champ) == aoc17_solutions$day24a)
 
 
 r1_lengths <- find_longest_bridge(r1)
@@ -23,4 +23,4 @@ r3_lengths <- find_longest_bridge(r3)
 longest <- find_longest_bridge(c(r1_lengths, r2_lengths, r3_lengths))
 length_champ <- find_strongest_bridge(longest)
 
-stopifnot(compute_bridge_strength(length_champ) == 1994)
+stopifnot(compute_bridge_strength(length_champ) == aoc17_solutions$day24b)

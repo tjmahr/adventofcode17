@@ -86,4 +86,4 @@ while (i < 12172063L) {
   i <- i + 1L
 }
 
-stopifnot(m1$checksum() == 2474)
+stopifnot(m1$checksum() == aoc17_solutions$day25a)

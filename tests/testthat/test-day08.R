@@ -8,12 +8,12 @@ test_that("register instructions", {
   c inc -20 if c == 10
   "
   lines %>%
-    run_many_instructions() %>%
+    run_register_instructions() %>%
     getElement("max_final") %>%
     expect_equal(1)
 
   lines %>%
-    run_many_instructions() %>%
+    run_register_instructions() %>%
     getElement("max_ever") %>%
     expect_equal(10)
 })

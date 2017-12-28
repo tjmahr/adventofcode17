@@ -1,4 +1,4 @@
-#' Day 5: A Maze of Twisty Trampolines, All Alike
+#' Day 05: A Maze of Twisty Trampolines, All Alike
 #'
 #' [A Maze of Twisty Trampolines, All Alike](http://adventofcode.com/2017/day/5)
 #'
@@ -62,11 +62,18 @@
 #'
 #' @rdname day05
 #' @export
-follow_day05a_instructions <- function(x) {
+#' @param x a sequence of jump offsets
+#' @examples
+#' # Uses the first increment rule
+#' find_time_to_escape_trampolines("0\n3\n0\n1\n-3")
+#
+#' # Uses the second increment rule
+#' find_time_to_escape_twistolines("0\n3\n0\n1\n-3")
+find_time_to_escape_trampolines <- function(x) {
   bot <- x %>%
     read_text_lines() %>%
     as.numeric() %>%
-    create_day5a_robot()
+    create_jumpbot()
 
   bot$set_increment_rule("a")
   bot$run_steps()
@@ -75,11 +82,11 @@ follow_day05a_instructions <- function(x) {
 
 #' @rdname day05
 #' @export
-follow_day05b_instructions <- function(x) {
+find_time_to_escape_twistolines <- function(x) {
   bot <- x %>%
     read_text_lines() %>%
     as.numeric() %>%
-    create_day5a_robot()
+    create_jumpbot()
 
   bot$set_increment_rule("b")
   bot$run_steps()
@@ -87,7 +94,7 @@ follow_day05b_instructions <- function(x) {
 }
 
 # Use a closure to create an object that performs and updates instructions
-create_day5a_robot <- function(steps) {
+create_jumpbot <- function(steps) {
   # Private data
   steps <- steps
   history <- 1

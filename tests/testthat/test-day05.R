@@ -9,7 +9,6 @@ test_that("following processing instructions", {
   -3
   "
 
-  follow_day05a_instructions(x) %>% expect_equal(5)
-  follow_day05b_instructions(x) %>% expect_equal(10)
-
+  find_time_to_escape_trampolines(x) %>% expect_equal(5)
+  find_time_to_escape_twistolines(x) %>% expect_equal(10)
 })

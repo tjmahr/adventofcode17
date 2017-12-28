@@ -4,7 +4,7 @@ commands <- readLines("./inst/input23.txt")
 m <- create_coprocessor(commands)
 while (m$.has_next()) suppressMessages(m$.eval_next())
 
-stopifnot(m$.counts["mul"] == 3025)
+stopifnot(m$.counts["mul"] == aoc17_solutions$day23a)
 
 
 # I solved it by studying and annotating the code. Crucially, h increments if f
@@ -66,4 +66,4 @@ n_primes <- b_values %>% lapply(is_prime) %>% unlist() %>% sum()
 
 # The guess 1000 - n_primes was wrong so I tried again to see if I had an
 # off-by-one error somewhere, so that's how I came up with this answer.
-1000 - n_primes + 1
+stopifnot(1000 - n_primes + 1 == aoc17_solutions$day23b)

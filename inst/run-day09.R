@@ -1,7 +1,8 @@
 library(adventofcode17)
+lines <- readLines("./inst/input09.txt")
 
-score <- readLines("./inst/input09.txt") %>% process_stream()
-stopifnot(score == 20530)
+score <- process_stream(lines)
+stopifnot(score == aoc17_solutions$day09a)
 
-garbage <- readLines("./inst/input09.txt") %>% count_garbage()
-stopifnot(garbage == 9978)
+garbage <- count_garbage(lines)
+stopifnot(garbage == aoc17_solutions$day09b)

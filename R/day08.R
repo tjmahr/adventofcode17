@@ -1,4 +1,4 @@
-#' Day 8: I Heard You Like Registers
+#' Day 08: I Heard You Like Registers
 #'
 #' [I Heard You Like Registers](http://adventofcode.com/2017/day/8)
 #'
@@ -51,13 +51,21 @@
 #'
 #' @rdname day08
 #' @export
-run_many_instructions <- function(lines) {
+#' @param lines a character vector of commands to run
+#' @examples
+#' lines <- "
+#' b inc 5 if a > 1
+#' a inc 1 if b < 5
+#' c dec -10 if a >= 1
+#' c inc -20 if c == 10"
+#' str(run_register_instructions(lines))
+run_register_instructions <- function(lines) {
   # My strategy is to convert the register instructions into R code and execute
   # them in a list environment so that R does all the symbol lookup, logic, and
   # math for me
 
   # Data lives here and names are looked up here.
-  register <- list()
+  register <- rlang::env()
 
   # Basic flow for running an instruction: Parse the line and get R code.
   # Initialize any as-yet unseen values to 0 and evaluate the line of code
@@ -75,7 +83,7 @@ run_many_instructions <- function(lines) {
 
   for (instruction in lines) {
     register <- run_instruction(register, instruction)
-    max_current <- max(unlist(register))
+    max_current <- max(unlist(as.list(register)))
 
     if (is.na(max_current > max_ever) || max_current > max_ever) {
       max_ever <- max_current
@@ -85,7 +93,7 @@ run_many_instructions <- function(lines) {
   list(
     max_final = max_current,
     max_ever = max_ever,
-    register = register
+    registers = as.list(register)
   )
 }
 
@@ -114,14 +122,20 @@ parse_instruction <- function(x) {
 
 # Set missing vars to 0
 initialize_vars <- function(register, vars) {
-  missing <- vars[!rlang::has_name(register, vars)]
-  register[missing] <- 0
-  register
+  missing <- vars[!rlang::env_has(register, vars)]
+  to_add <- rlang::rep_along(missing, 0) %>%
+    as.list() %>%
+    rlang::set_names(missing)
+
+  rlang::env_bind(register, !!! to_add)
+  invisible(register)
 }
 
 # Run the code to update a register
+# Hmmm... Might want to have a version that can take an expression, infer the
+# target and evaluate it.
 eval_instruction <- function(register, target, code) {
-  result <- rlang::eval_tidy(code, data = register)
-  register[[target]] <- result
-  register
+  result <- rlang::eval_tidy(code, env = register)
+  rlang::env_bind(register, !! target := result)
+  invisible(register)
 }

@@ -9,12 +9,8 @@ args <- list(
 )
 
 results <- twist_knot(args)
-prod(results$items[1:2])
+p1 <- prod(results$items[1:2])
+stopifnot(p1 == aoc17_solutions$day10a)
 
-stopifnot(prod(results$items[1:2]) == 13760)
-
-lengths <- "227,169,3,166,246,201,0,47,1,255,2,254,96,3,97,144"
-result <- knot_hash("227,169,3,166,246,201,0,47,1,255,2,254,96,3,97,144")
-result
-
-stopifnot(result == "2da93395f1a6bb3472203252e3b17fe5")
+p2 <- knot_hash("227,169,3,166,246,201,0,47,1,255,2,254,96,3,97,144")
+stopifnot(p2 == aoc17_solutions$day10b)
