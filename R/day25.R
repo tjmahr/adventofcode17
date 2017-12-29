@@ -1,8 +1,9 @@
-
 #' Day 25: The Halting Problem
 #'
 #' [The Halting Problem](http://adventofcode.com/2017/day/25)
 #'
+#' @name day25
+#' @rdname day25
 #' @details
 #'
 #' **Part One**
@@ -116,8 +117,34 @@
 #'
 #' The *garbage collector* winks at you, then continues sweeping.
 #'
+#' @examples
+#' demo_rules <- list(
+#'   create_tm_rule("A", "0", "1", "R", "B"),
+#'   create_tm_rule("A", "1", "0", "L", "B"),
+#'   create_tm_rule("B", "0", "1", "L", "A"),
+#'   create_tm_rule("B", "1", "1", "R", "A")
+#' )
+#'
+#' m <- turing_machine(demo_rules, "A")
+#' m$step()
+#' m$format_tape()
+#' m$step()
+#' m$format_tape()
+#' m$step()
+#' m$format_tape()
+#' m$step()
+#' m$format_tape()
+#' m$step()
+#' m$format_tape()
+#' m$step()
+#' m$format_tape()
+#' m$checksum()
+NULL
+
 #' @rdname day25
 #' @export
+#' @param rules a list of `tm_rules`
+#' @param starting_state initial state of the machine
 turing_machine <- function(rules, starting_state) {
   # We'll use an object-oriented approach.
 
@@ -175,15 +202,19 @@ turing_machine <- function(rules, starting_state) {
     invisible(NULL)
   }
 
-  # Print the local area of the tape around the cursor
+  # Get the local area of the tape around the cursor
   # "... X X X X X [currently-scanned (current state)] X X X X X ..."
-  print_tape <- function(n = 5) {
+  format_tape <- function(n = 5) {
     maybe_expand(pos - n)
     maybe_expand(pos + n)
     local_tape <- tape
     local_tape[pos] <- paste0("[", tape[pos] , " (", state, ")", "]")
     local_tape <- local_tape[seq(pos - n, pos + n)]
-    out_tape <- c("...", local_tape, "...") %>% paste(collapse = " ")
+    paste(c("...", local_tape, "..."), collapse = " ")
+  }
+
+  print_tape <- function(n = 5) {
+    out_tape <- format_tape(n)
     print(out_tape)
     invisible(out_tape)
   }
@@ -193,6 +224,7 @@ turing_machine <- function(rules, starting_state) {
   }
 
   list(step = step,
+       format_tape = format_tape,
        print_tape = print_tape,
        checksum = checksum,
        get_tape = function() tape)
@@ -201,6 +233,10 @@ turing_machine <- function(rules, starting_state) {
 
 #' @rdname day25
 #' @export
+#' @param start,scanned,print,move,final A Turing machine rule can be described
+#'   as a tuple of five elements (`start`: starting state, `scanned`: currently
+#'   scanned symbol, `print`: symbol to print, `move`: direction to move,
+#'   `final`: finishing state).
 create_tm_rule <- function(start, scanned, print, move, final) {
   structure(
     list(
@@ -224,6 +260,7 @@ print.tm_rule <- function(x, ...) {
   invisible(x)
 }
 
+#' @export
 as.data.frame.tm_rule <- function(x, ...) {
   as.data.frame.list(x, stringsAsFactors = FALSE)
 }

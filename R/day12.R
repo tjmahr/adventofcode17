@@ -2,6 +2,8 @@
 #'
 #' [Digital Plumber](http://adventofcode.com/2017/day/12)
 #'
+#' @name day12
+#' @rdname day12
 #' @details
 #'
 #' **Part One**
@@ -71,7 +73,6 @@
 #'
 #' *How many groups are there* in total?
 #'
-#' @rdname day12
 #' @export
 #' @param pipes a character vector of pipe connections
 #' @examples

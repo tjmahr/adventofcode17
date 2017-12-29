@@ -2,6 +2,8 @@
 #'
 #' [Packet Scanners](http://adventofcode.com/2017/day/13)
 #'
+#' @name day13
+#' @rdname day13
 #' @details
 #'
 #' **Part One**
@@ -321,17 +323,14 @@
 #' *What is the fewest number of picoseconds* that you need to delay the
 #' packet to pass through the firewall without being caught?
 #'
-#' @rdname day13
 #' @export
 #' @param scanner_lines a description of the scanners
 #' @param start_delay start computing the delay from this value
 #' @examples
-#' "0: 3\n1: 2\n4: 4\n6: 4" %>%
-#'   read_text_lines() %>%
+#' c("0: 3", "1: 2", "4: 4", "6: 4") %>%
 #'   calculate_firewall_severity()
 #'
-#' "0: 3\n1: 2\n4: 4\n6: 4" %>%
-#'   read_text_lines() %>%
+#' c("0: 3", "1: 2", "4: 4", "6: 4") %>%
 #'   determine_firewall_delay()
 calculate_firewall_severity <- function(scanner_lines) {
   # My strategy for today is to analytically determine the location of each

@@ -7,6 +7,8 @@
 #'
 #' [Disk Defragmentation](http://adventofcode.com/2017/day/14)
 #'
+#' @name day14
+#' @rdname day14
 #' @details
 #'
 #' **Part One**
@@ -92,7 +94,6 @@
 #'
 #' *How many regions* are present given your key string?
 #'
-#' @rdname day14
 #' @export
 #' @param key a seed for the hashing
 #' @param seq a set of suffix numbers for the keys

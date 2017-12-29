@@ -1,17 +1,24 @@
 Package: adventofcode17
-Version: 0.0.0.9000
-Title: What the Package Does (one line, title case)
-Description: What the package does (one paragraph).
-Authors@R: person("First", "Last", , "first.last@example.com", c("aut", "cre"))
+Title: Advent of Code 2017
+Version: 0.0.1.9000
+Authors@R: c(
+  person("Tristan", "Mahr", , "tristan.mahr@gmail.com", c("aut", "cre")),
+  person("Eric", "Wastl", role = c("ctb"), 
+  comment = "Created puzzles and descriptions that appear in documentation.")
+  )
+Description: Advent of Code is an annual series of a programming puzzles. 
+  This package contains solutions for the 2017 iteration written in R.
 License: GPL-3
-Encoding: UTF-8
-LazyData: true
-ByteCompile: true
-Suggests:
-    testthat
-RoxygenNote: 6.0.1.9000
-Roxygen: list(markdown = TRUE)
-Imports:
+URL: https://github.com/tjmahr/adventofcode17
+BugReports: https://github.com/tjmahr/adventofcode17/issues
+Imports: 
     magrittr,
     rlang (>= 0.1.2),
     stringr
+Suggests: 
+    testthat
+ByteCompile: true
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.0.1.9000

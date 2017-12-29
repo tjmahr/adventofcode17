@@ -2,6 +2,8 @@
 #'
 #' [Permutation Promenade](http://adventofcode.com/2017/day/16)
 #'
+#' @name day16
+#' @rdname day16
 #' @details
 #'
 #' **Part One**
@@ -55,7 +57,6 @@
 #'
 #' *In what order are the programs standing* after their billion dances?
 #'
-#' @rdname day16
 #' @export
 #' @param programs a string of letters to reorder
 #' @param moves a string of moves to do

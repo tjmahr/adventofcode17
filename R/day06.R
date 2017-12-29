@@ -2,6 +2,8 @@
 #'
 #' [Memory Reallocation](http://adventofcode.com/2017/day/6)
 #'
+#' @name day06
+#' @rdname day06
 #' @details
 #'
 #' **Part One**
@@ -67,7 +69,6 @@
 #' *How many cycles* are in the infinite loop that arises from the
 #' configuration in your puzzle input?
 #'
-#' @rdname day06
 #' @export
 #' @param xs a vector of memory values
 #' @examples

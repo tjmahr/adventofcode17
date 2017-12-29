@@ -2,6 +2,8 @@
 #'
 #' [Particle Swarm](http://adventofcode.com/2017/day/20)
 #'
+#' @name day20
+#' @rdname day20
 #' @details
 #'
 #' **Part One**
@@ -95,7 +97,6 @@
 #'
 #' *How many particles are left* after all collisions are resolved?
 #'
-#' @rdname day20
 #' @export
 #' @param p_strings lines of text describing particles
 #' @examples

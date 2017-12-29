@@ -2,6 +2,8 @@
 #'
 #' [A Maze of Twisty Trampolines, All Alike](http://adventofcode.com/2017/day/5)
 #'
+#' @name day05
+#' @rdname day05
 #' @details
 #'
 #' **Part One**
@@ -60,7 +62,6 @@
 #'
 #' *How many steps* does it now take to reach the exit?
 #'
-#' @rdname day05
 #' @export
 #' @param x a sequence of jump offsets
 #' @examples

@@ -2,6 +2,8 @@
 #'
 #' [Corruption Checksum](http://adventofcode.com/2017/day/2)
 #'
+#' @name day02
+#' @rdname day02
 #' @details
 #'
 #' **Part One**
@@ -69,7 +71,6 @@
 #' @param f_filter a function to find a pair on each spreadsheet row
 #' @param f_combine a function to apply on the pair from each line
 #' @param x a vector of integers to filter
-#' @rdname day02
 #' @export
 #' @examples
 #' s1 <- "5 1 9 5\n7 5 3\n2 4 6 8"

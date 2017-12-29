@@ -2,6 +2,8 @@
 #'
 #' [High-Entropy Passphrases](http://adventofcode.com/2017/day/4)
 #'
+#' @name day04
+#' @rdname day04
 #' @details
 #'
 #' **Part One**
@@ -44,7 +46,6 @@
 #'
 #' Under this new system policy, *how many passphrases are valid?*
 #'
-#' @rdname day04
 #' @export
 #' @param passphrases a string of passphrases
 #' @param x a passphrase to check

@@ -2,6 +2,8 @@
 #'
 #' [Sporifica Virus](http://adventofcode.com/2017/day/22)
 #'
+#' @name day22
+#' @rdname day22
 #' @details
 #'
 #' **Part One**
@@ -250,14 +252,14 @@
 #' bursts cause a node to become infected*? (Do not count nodes that begin
 #' infected.)
 #'
-#' @rdname day22
 #' @export
 #' @param start starting start of grid (one string per row)
 #' @examples
-#' start <- "..#\n#..\n..."
-#' grid1 <- start %>% read_text_lines() %>% virus_grid()
+#' start <- c("..#", "#..", "...")
+#' grid1 <- virus_grid(start)
 #' grid1$step()
-#' grid2 <- start %>% read_text_lines() %>% evolved_virus_grid()
+#'
+#' grid2 <- evolved_virus_grid(start)
 #' grid2$step()
 virus_grid <- function(start) {
   chars <- start %>% strsplit("") %>% unlist()

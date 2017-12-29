@@ -2,6 +2,8 @@
 #'
 #' [Fractal Art](http://adventofcode.com/2017/day/21)
 #'
+#' @name day21
+#' @rdname day21
 #' @details
 #'
 #' **Part One**
@@ -119,7 +121,6 @@
 #'
 #' *How many pixels stay on* after `18` iterations?
 #'
-#' @rdname day21
 #' @export
 #' @param m a matrix
 #' rules <- c(

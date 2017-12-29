@@ -2,6 +2,8 @@
 #'
 #' [Hex Ed](http://adventofcode.com/2017/day/11)
 #'
+#' @name day11
+#' @rdname day11
 #' @details
 #'
 #' **Part One**
@@ -42,7 +44,6 @@
 #' *How many steps away* is the *furthest* he ever got from his starting
 #' position?
 #'
-#' @rdname day11
 #' @export
 #' @param steps a sequence of hexagon directions
 #' @examples

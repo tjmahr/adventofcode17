@@ -1,0 +1,19 @@
+I created documentation by downloading the HTML of the puzzle descriptions and
+converting them to markdown with
+
+    FILES=*.html
+    for f in $FILES
+    do
+      filename="${f%.*}"
+      echo "Converting $f to $filename.md"
+      `pandoc "$f" -f html -t markdown -o "$filename.md"`
+    done
+
+I prefixed the `#' ` to each line with
+
+    sed -i -e "s/^/#' /" file
+
+I had to remove the easter egg title tags to not upset the Roxygen2 conversion.
+
+This approach worked flawlessly for every day except Day09 in which the puzzle
+description had lots of braces which the RD format hates.

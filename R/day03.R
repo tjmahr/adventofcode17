@@ -2,6 +2,8 @@
 #'
 #' [Spiral Memory](http://adventofcode.com/2017/day/3)
 #'
+#' @name day03
+#' @rdname day03
 #' @details
 #'
 #' **Part One**
@@ -70,7 +72,6 @@
 #' input?
 #'
 #' @param target a target number for a spiral
-#' @rdname day03
 #' @export
 #' @examples
 #' spiral_distance(190)

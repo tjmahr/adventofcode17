@@ -2,6 +2,8 @@
 #'
 #' [Recursive Circus](http://adventofcode.com/2017/day/7)
 #'
+#' @name day07
+#' @rdname day07
 #' @details
 #'
 #' **Part One**
@@ -106,7 +108,6 @@
 #' Given that exactly one program is the wrong weight, *what would its
 #' weight need to be* to balance the entire tower?
 #'
-#' @rdname day07
 #' @export
 #' @param lines a character vector of program descriptions
 #' @examples

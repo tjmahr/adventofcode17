@@ -2,6 +2,8 @@
 #'
 #' [Knot Hash](http://adventofcode.com/2017/day/10)
 #'
+#' @name day10
+#' @rdname day10
 #' @details
 #'
 #' **Part One**
@@ -153,7 +155,6 @@
 #' Knot Hash of your puzzle input?* Ignore any leading or trailing
 #' whitespace you might encounter.
 #'
-#' @rdname day10
 #' @export
 #' @param args a list of arguments to control the twisting
 #' @param seed a value to hash

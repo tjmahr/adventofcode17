@@ -2,6 +2,8 @@
 #'
 #' [I Heard You Like Registers](http://adventofcode.com/2017/day/8)
 #'
+#' @name day08
+#' @rdname day08
 #' @details
 #'
 #' **Part One**
@@ -49,7 +51,6 @@
 #' the highest value ever held was `10` (in register `c` after the third
 #' instruction was evaluated).
 #'
-#' @rdname day08
 #' @export
 #' @param lines a character vector of commands to run
 #' @examples

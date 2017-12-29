@@ -2,6 +2,8 @@
 #'
 #' [Duet](http://adventofcode.com/2017/day/18)
 #'
+#' @name day18
+#' @rdname day18
 #' @details
 #'
 #' **Part One**
@@ -134,9 +136,9 @@
 #' Once both of your programs have terminated (regardless of what caused
 #' them to do so), *how many times did program `1` send a value*?
 #'
-#' @rdname day18
 #' @export
 #' @param commands a set of commands for the machine
+#' @examples
 #' commands <- "set a 1
 #'   add a 2
 #'   mul a a

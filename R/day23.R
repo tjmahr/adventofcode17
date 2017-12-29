@@ -2,6 +2,8 @@
 #'
 #' [Coprocessor Conflagration](http://adventofcode.com/2017/day/23)
 #'
+#' @name day23
+#' @rdname day23
 #' @details
 #'
 #' **Part One**
@@ -53,8 +55,17 @@
 #' After setting register `a` to `1`, if the program were to run to
 #' completion, *what value would be left in register `h`?*
 #'
-#' @rdname day23
 #' @export
+#' @param commands a character vector of commands to evaluate
+#' @examples
+#' m <- create_coprocessor(c("set a 0", "sub a -2", "mul a 2", "mul a 3"))
+#' m$.eval_next()
+#' # Different levels of debugging info
+#' m$.eval_next(1)
+#' m$.eval_next(2)
+#' m$.eval_next(2)
+#' m$.counts
+#' m$a
 create_coprocessor <- function(commands) {
   # I'm copying code from Day 18's solution which uses tidy evaluation to
   # evaluate instructions in a custom environment.

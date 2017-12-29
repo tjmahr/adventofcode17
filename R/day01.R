@@ -2,6 +2,8 @@
 #'
 #' [Inverse Captcha](http://adventofcode.com/2017/day/1)
 #'
+#' @name day01
+#' @rdname day01
 #' @details
 #'
 #' **Part One**
@@ -78,7 +80,6 @@
 #'
 #' @param x a number
 #' @return the specified sum of digits
-#' @rdname day01
 #' @export
 #' @examples
 #' sum_of_digits_matching_next(91212129)

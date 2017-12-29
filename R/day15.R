@@ -2,6 +2,8 @@
 #'
 #' [Dueling Generators](http://adventofcode.com/2017/day/15)
 #'
+#' @name day15
+#' @rdname day15
 #' @details
 #'
 #' **Part One**
@@ -132,7 +134,6 @@
 #' After 5 million pairs, but using this new generator logic, *what is the
 #' judge's final count*?
 #'
-#' @rdname day15
 #' @export
 #' @param a,b generators
 #' @param n_times number of items to judge

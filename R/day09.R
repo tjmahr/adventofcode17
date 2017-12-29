@@ -4,6 +4,8 @@
 #'
 #' [Stream Processing](http://adventofcode.com/2017/day/9)
 #'
+#' @name day09
+#' @rdname day09
 #' @details
 #'
 #' **Part One**
@@ -100,7 +102,6 @@
 #' *How many non-canceled characters are within the garbage* in your puzzle
 #' input?
 #'
-#' @rdname day09
 #' @export
 #' @param stream a string to process
 #' @examples

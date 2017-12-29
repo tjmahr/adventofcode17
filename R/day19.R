@@ -2,6 +2,8 @@
 #'
 #' [A Series of Tubes](http://adventofcode.com/2017/day/19)
 #'
+#' @name day19
+#' @rdname day19
 #' @details
 #'
 #' **Part One**
@@ -73,7 +75,6 @@
 #'
 #' *How many steps* does the packet need to go?
 #'
-#' @rdname day19
 #' @export
 #' @param board a board description
 #' @examples

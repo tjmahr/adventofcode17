@@ -2,6 +2,8 @@
 #'
 #' [Spinlock](http://adventofcode.com/2017/day/17)
 #'
+#' @name day17
+#' @rdname day17
 #' @details
 #'
 #' **Part One**
@@ -84,12 +86,12 @@
 #'
 #' *What is the value after `0`* the moment `50000000` is inserted?
 #'
-#' @rdname day17
 #' @export
 #' @param offset initial jump size
 #' @param insertions number of cycles to perform
+#' @examples
 #' spinlock(3, 9)
-#' fast_spinlock(3, 10000)
+#' fast_spinlock_after_zero(3, 10000)
 spinlock <- function(offset, insertions) {
   x <- 0L
   seed <- 1L

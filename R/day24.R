@@ -2,6 +2,8 @@
 #'
 #' [Electromagnetic Moat](http://adventofcode.com/2017/day/24)
 #'
+#' @name day24
+#' @rdname day24
 #' @details
 #'
 #' **Part One**
@@ -80,9 +82,29 @@
 #' *What is the strength of the longest bridge you can make?* If you can
 #' make multiple bridges of the longest length, pick the *strongest* one.
 #'
+#' @examples
+#' pieces <- c("0/2", "2/2", "2/3",  "3/4", "3/5",  "0/1", "10/1", "9/10")
+#'
+#' # Starts with empty piece ("") and request a piece with 0. Returns all
+#' # possible full-length bridges from those starting conditions.
+#' bridges <- connect_free_pieces("", 0, pieces)
+#'
+#' find_strongest_bridge(bridges)
+#'
+#' bridges %>%
+#'   find_strongest_bridge() %>%
+#'   compute_bridge_strength()
+#'
+#' find_longest_bridge(bridges)
+#'
+#' bridges %>%
+#'   find_longest_bridge() %>%
+#'   find_strongest_bridge()
+NULL
+
 #' @rdname day24
 #' @export
-#'
+#' @param bridges a string describing a bridge
 find_strongest_bridge <- function(bridges) {
   strongest <- bridges %>%
     lapply(compute_bridge_strength) %>%
@@ -104,6 +126,7 @@ find_longest_bridge <- function(bridges) {
 
 #' @rdname day24
 #' @export
+#' @param bridge a string describing a bridge
 compute_bridge_strength <- function(bridge) {
   bridge %>%
     strsplit("--") %>%
@@ -123,7 +146,11 @@ compute_bridge_length <- function(bridge) {
     length()
 }
 
+#' @rdname day24
 #' @export
+#' @param piece starting piece
+#' @param active_value the value that needs to be matched
+#' @param pieces vector of pieces to search for a match
 connect_free_pieces <- function(piece, active_value, pieces) {
   # When finding matches for x/y, one of the sides (x or y) is "active". We want
   # to find other pieces with that same value.
